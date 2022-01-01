@@ -25,6 +25,9 @@ type
     procedure TestFrom;
 
     [Test]
+    procedure TestFrom_Empty;
+
+    [Test]
     procedure TestToArray;
 
     [Test]
@@ -327,6 +330,13 @@ begin
   Assert.AreEqual('A', FSut.Items[0]);
   Assert.AreEqual('B', FSut.Items[1]);
   Assert.AreEqual('C', FSut.Items[2]);
+end;
+
+procedure TTestArrays.TestFrom_Empty;
+begin
+  const Sut: IArray<string> = TArrays<string>.From([]);
+
+  Assert.AreEqual(0, Sut.Lenght);
 end;
 
 procedure TTestArrays.TestMap_One_Arg;
