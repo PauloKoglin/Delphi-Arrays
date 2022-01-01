@@ -125,6 +125,13 @@ type
 
     [Test]
     procedure TestSlice;
+
+    [Test]
+    procedure TestSlice_Same_Start_and_End_Index;
+
+    [Test]
+    procedure TestSlice_Only_StartIndex;
+
   end;
 
 implementation
@@ -524,6 +531,30 @@ begin
 
   Assert.AreEqual(1, NewArray.Count);
   Assert.AreEqual('B', NewArray.Items[0]);
+  Assert.AreEqual(3, FSut.Count);
+  Assert.AreEqual('A', FSut.Items[0]);
+  Assert.AreEqual('B', FSut.Items[1]);
+  Assert.AreEqual('C', FSut.Items[2]);
+end;
+
+procedure TTestArrays.TestSlice_Only_StartIndex;
+begin
+  const NewArray: IArray<string> = FSut.Slice(1);
+
+  Assert.AreEqual(2, NewArray.Count);
+  Assert.AreEqual('B', NewArray.Items[0]);
+  Assert.AreEqual('C', NewArray.Items[1]);
+  Assert.AreEqual(3, FSut.Count);
+  Assert.AreEqual('A', FSut.Items[0]);
+  Assert.AreEqual('B', FSut.Items[1]);
+  Assert.AreEqual('C', FSut.Items[2]);
+end;
+
+procedure TTestArrays.TestSlice_Same_Start_and_End_Index;
+begin
+  const NewArray: IArray<string> = FSut.Slice(1, 1);
+
+  Assert.AreEqual(0, NewArray.Count);
   Assert.AreEqual(3, FSut.Count);
   Assert.AreEqual('A', FSut.Items[0]);
   Assert.AreEqual('B', FSut.Items[1]);

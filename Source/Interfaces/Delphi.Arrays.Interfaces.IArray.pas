@@ -64,7 +64,8 @@ type
     function Push(const Element: T): Integer; overload;
     function Push(const Elements: TArray<T>): Integer; overload;
 
-    function Slice(const StartIndex: Integer; const EndIndex: Integer): IArray<T>;
+    function Slice(const StartIndex: Integer; const EndIndex: Integer): IArray<T>; overload;
+    function Slice(const StartIndex: Integer = 0): IArray<T>; overload;
 
     function Reverse(): IArray<T>;
     function Pop(): IArray<T>;

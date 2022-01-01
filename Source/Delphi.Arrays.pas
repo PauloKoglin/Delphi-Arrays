@@ -38,7 +38,8 @@ type
     function Push(const Element: T): Integer; overload;
     function Push(const Elements: TArray<T>): Integer; overload;
 
-    function Slice(const StartIndex: Integer; const EndIndex: Integer): IArray<T>;
+    function Slice(const StartIndex: Integer; const EndIndex: Integer): IArray<T>; overload;
+    function Slice(const StartIndex: Integer = 0): IArray<T>; overload;
 
     function Reverse(): IArray<T>;
     function Pop(): IArray<T>;
@@ -294,6 +295,11 @@ begin
 
   FItems := NewArray;
   Result := Self;
+end;
+
+function TArrays<T>.Slice(const StartIndex: Integer): IArray<T>;
+begin
+  Result := Self.Slice(StartIndex, Length(FItems));
 end;
 
 function TArrays<T>.Slice(const StartIndex, EndIndex: Integer): IArray<T>;
