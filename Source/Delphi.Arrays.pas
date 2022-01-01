@@ -32,7 +32,8 @@ type
     function Filter(const Callback: TCallbackFnElementIndex<T>): IArray<T>; overload;
     function Filter(const Callback: TCallbackFnElement<T>): IArray<T>; overload;
 
-    function Concat(const Value: T): IArray<T>;
+    function Concat(const Value: T): IArray<T>; overload;
+    function Concat(const Values: TArray<T>): IArray<T>; overload;
 
     function Reverse(): IArray<T>;
     function Pop(): IArray<T>;
@@ -52,6 +53,18 @@ begin
   const NewLength = Length(FItems) + 1;
   SetLength(FItems, NewLength);
   FItems[NewLength-1] := Value;
+  Result := Self;
+end;
+
+function TArrays<T>.Concat(const Values: TArray<T>): IArray<T>;
+begin
+  const MaxIndex = Length(FItems) - 1;
+  const NewLength = Length(FItems) + Length(Values);
+  SetLength(FItems, NewLength);
+
+  for var i := 1 to Length(Values) do
+    FItems[MaxIndex+i] := Values[i-1];
+
   Result := Self;
 end;
 

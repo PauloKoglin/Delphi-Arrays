@@ -104,6 +104,9 @@ type
 
     [Test]
     procedure TestConcat_One_Value;
+
+    [Test]
+    procedure TestConcat_Multiple_Values;
   end;
 
 implementation
@@ -119,6 +122,21 @@ end;
 
 procedure TTestArrays.TearDown;
 begin
+end;
+
+procedure TTestArrays.TestConcat_Multiple_Values;
+begin
+  const NewArray = FSut.Concat(['NEW_ELEMENT', 'ANOTHER_ELEMENT', 'any', '', '123']);
+
+  Assert.AreEqual(8, NewArray.Lenght);
+  Assert.AreEqual('A', NewArray.Items[0]);
+  Assert.AreEqual('B', NewArray.Items[1]);
+  Assert.AreEqual('C', NewArray.Items[2]);
+  Assert.AreEqual('NEW_ELEMENT', NewArray.Items[3]);
+  Assert.AreEqual('ANOTHER_ELEMENT', NewArray.Items[4]);
+  Assert.AreEqual('any', NewArray.Items[5]);
+  Assert.AreEqual('', NewArray.Items[6]);
+  Assert.AreEqual('123', NewArray.Items[7]);
 end;
 
 procedure TTestArrays.TestConcat_One_Value;
