@@ -46,8 +46,8 @@ type
     function Map(const Callback: TMapCallbackFnElement<T>): IArray<T>; overload;
     function Map(const Callback: TMapCallbackFnElementIndex<T>): IArray<T>; overload;
 
-    function Fill(const Value: T; startIndex: Integer; endIndex: Integer): IArray<T>; overload;
-    function Fill(const Value: T; startIndex: Integer): IArray<T>; overload;
+    function Fill(const Value: T; const StartIndex: Integer; const EndIndex: Integer): IArray<T>; overload;
+    function Fill(const Value: T; const StartIndex: Integer): IArray<T>; overload;
     function Fill(const Value: T): IArray<T>; overload;
 
     function Every(const Callback: TCallbackFn<T>): Boolean; overload;
@@ -63,6 +63,8 @@ type
 
     function Push(const Element: T): Integer; overload;
     function Push(const Elements: TArray<T>): Integer; overload;
+
+    function Slice(const StartIndex: Integer; const EndIndex: Integer): IArray<T>;
 
     function Reverse(): IArray<T>;
     function Pop(): IArray<T>;

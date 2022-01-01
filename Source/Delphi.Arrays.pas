@@ -20,8 +20,8 @@ type
     function Map(const Callback: TMapCallbackFnElement<T>): IArray<T>; overload;
     function Map(const Callback: TMapCallbackFnElementIndex<T>): IArray<T>; overload;
 
-    function Fill(const Value: T; startIndex: Integer; endIndex: Integer): IArray<T>; overload;
-    function Fill(const Value: T; startIndex: Integer): IArray<T>; overload;
+    function Fill(const Value: T; const StartIndex: Integer; const EndIndex: Integer): IArray<T>; overload;
+    function Fill(const Value: T; const StartIndex: Integer): IArray<T>; overload;
     function Fill(const Value: T): IArray<T>; overload;
 
     function Every(const Callback: TCallbackFn<T>): Boolean; overload;
@@ -37,6 +37,8 @@ type
 
     function Push(const Element: T): Integer; overload;
     function Push(const Elements: TArray<T>): Integer; overload;
+
+    function Slice(const StartIndex: Integer; const EndIndex: Integer): IArray<T>;
 
     function Reverse(): IArray<T>;
     function Pop(): IArray<T>;
@@ -77,7 +79,7 @@ begin
   FItems := NewArray;
 end;
 
-function TArrays<T>.Fill(const Value: T; startIndex, endIndex: Integer): IArray<T>;
+function TArrays<T>.Fill(const Value: T; const StartIndex, EndIndex: Integer): IArray<T>;
 begin
   var FromIndex := startIndex;
   var ToIndex := EndIndex;
@@ -172,7 +174,7 @@ begin
   );
 end;
 
-function TArrays<T>.Fill(const Value: T; startIndex: Integer): IArray<T>;
+function TArrays<T>.Fill(const Value: T; const StartIndex: Integer): IArray<T>;
 begin
   Result := Self.Fill(Value, startIndex, Length(FItems)-1);
 end;
@@ -292,6 +294,21 @@ begin
 
   FItems := NewArray;
   Result := Self;
+end;
+
+function TArrays<T>.Slice(const StartIndex, EndIndex: Integer): IArray<T>;
+begin
+  var NewArray: TArray<T> := [];
+  SetLength(NewArray, EndIndex - StartIndex);
+
+  var Index: Integer := 0;
+  for var i := startIndex to endIndex-1 do
+  begin
+    NewArray[Index] := FItems[i];
+    Inc(Index);
+  end;
+
+  Result := TArrays<T>.From(NewArray);
 end;
 
 end.

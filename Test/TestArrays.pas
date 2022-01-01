@@ -122,6 +122,9 @@ type
 
     [Test]
     procedure TestShift_One_Element_Array;
+
+    [Test]
+    procedure TestSlice;
   end;
 
 implementation
@@ -513,6 +516,18 @@ begin
   const NewArray = Sut.Shift();
 
   Assert.AreEqual(0, NewArray.Count);
+end;
+
+procedure TTestArrays.TestSlice;
+begin
+  const NewArray: IArray<string> = FSut.Slice(1, 2);
+
+  Assert.AreEqual(1, NewArray.Count);
+  Assert.AreEqual('B', NewArray.Items[0]);
+  Assert.AreEqual(3, FSut.Count);
+  Assert.AreEqual('A', FSut.Items[0]);
+  Assert.AreEqual('B', FSut.Items[1]);
+  Assert.AreEqual('C', FSut.Items[2]);
 end;
 
 procedure TTestArrays.TestToArray;
