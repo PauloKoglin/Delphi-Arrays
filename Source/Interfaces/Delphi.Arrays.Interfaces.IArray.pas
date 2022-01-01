@@ -58,6 +58,8 @@ type
     function Filter(const Callback: TCallbackFnElementIndex<T>): IArray<T>; overload;
     function Filter(const Callback: TCallbackFnElement<T>): IArray<T>; overload;
 
+    function Concat(const Value: T): IArray<T>;
+
     function Reverse(): IArray<T>;
     function Pop(): IArray<T>;
     function Lenght(): Integer;

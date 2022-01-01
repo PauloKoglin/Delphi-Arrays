@@ -86,7 +86,7 @@ type
 
     [Test]
     procedure TestEvery_Truthy_Tree_Args;
-    
+
     [Test]
     procedure TestEvery_Falsy_Tree_Args;
 
@@ -101,6 +101,9 @@ type
 
     [Test]
     procedure TestFilter_No_Matchs_Found;
+
+    [Test]
+    procedure TestConcat_One_Value;
   end;
 
 implementation
@@ -116,6 +119,17 @@ end;
 
 procedure TTestArrays.TearDown;
 begin
+end;
+
+procedure TTestArrays.TestConcat_One_Value;
+begin
+  const NewArray = FSut.Concat('NEW_ELEMENT');
+
+  Assert.AreEqual(4, NewArray.Lenght);
+  Assert.AreEqual('A', NewArray.Items[0]);
+  Assert.AreEqual('B', NewArray.Items[1]);
+  Assert.AreEqual('C', NewArray.Items[2]);
+  Assert.AreEqual('NEW_ELEMENT', NewArray.Items[3]);
 end;
 
 procedure TTestArrays.TestEvery_Falsy;
