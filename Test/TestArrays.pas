@@ -135,6 +135,9 @@ type
     [Test]
     procedure TestSlice_EndIndex_Greater_Then_Max_Index;
 
+    [Test]
+    procedure TestSlice_No_Range;
+
   end;
 
 implementation
@@ -546,6 +549,20 @@ begin
 
   Assert.AreEqual(1, NewArray.Count);
   Assert.AreEqual('C', NewArray.Items[0]);
+  Assert.AreEqual(3, FSut.Count);
+  Assert.AreEqual('A', FSut.Items[0]);
+  Assert.AreEqual('B', FSut.Items[1]);
+  Assert.AreEqual('C', FSut.Items[2]);
+end;
+
+procedure TTestArrays.TestSlice_No_Range;
+begin
+  const NewArray: IArray<string> = FSut.Slice();
+
+  Assert.AreEqual(3, NewArray.Count);
+  Assert.AreEqual('A', NewArray.Items[0]);
+  Assert.AreEqual('B', NewArray.Items[1]);
+  Assert.AreEqual('C', NewArray.Items[2]);
   Assert.AreEqual(3, FSut.Count);
   Assert.AreEqual('A', FSut.Items[0]);
   Assert.AreEqual('B', FSut.Items[1]);
