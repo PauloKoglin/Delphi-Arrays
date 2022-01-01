@@ -66,6 +66,7 @@ type
 
     function Reverse(): IArray<T>;
     function Pop(): IArray<T>;
+    function Shift(): IArray<T>;
     function Count(): Integer;
     function ToArray(): TArray<T>;
 

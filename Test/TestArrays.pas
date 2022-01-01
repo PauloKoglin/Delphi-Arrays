@@ -113,6 +113,9 @@ type
 
     [Test]
     procedure TestPush_Multiple_Elements;
+
+    [Test]
+    procedure TestShift;
   end;
 
 implementation
@@ -479,6 +482,15 @@ begin
   Assert.AreEqual('C', NewArray.Items[0]);
   Assert.AreEqual('B', NewArray.Items[1]);
   Assert.AreEqual('A', NewArray.Items[2]);
+end;
+
+procedure TTestArrays.TestShift;
+begin
+  const NewArray = FSut.Shift();
+
+  Assert.AreEqual(2, NewArray.Count);
+  Assert.AreEqual('B', NewArray.Items[0]);
+  Assert.AreEqual('C', NewArray.Items[1]);
 end;
 
 procedure TTestArrays.TestToArray;

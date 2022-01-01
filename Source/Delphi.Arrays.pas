@@ -40,6 +40,7 @@ type
 
     function Reverse(): IArray<T>;
     function Pop(): IArray<T>;
+    function Shift(): IArray<T>;
     function Count(): Integer;
     function ToArray(): TArray<T>;
 
@@ -266,6 +267,28 @@ begin
 
   for var i := 0 to Count do
     NewArray[i] := FItems[Count-i];
+
+  FItems := NewArray;
+  Result := Self;
+end;
+
+function TArrays<T>.Shift: IArray<T>;
+begin
+  const Count = Length(FItems);
+
+  if Count = 0 then
+    Exit(Self);
+
+  var NewArray: TArray<T> := [];
+  if Count = 1 then
+  begin
+    FItems := NewArray;
+    Exit(Self);
+  end;
+
+  SetLength(NewArray, Count-1);
+  for var i := 1 to Count-1 do
+    NewArray[i-1] := FItems[i];
 
   FItems := NewArray;
   Result := Self;
