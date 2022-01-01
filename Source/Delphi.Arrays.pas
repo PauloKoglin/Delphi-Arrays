@@ -312,7 +312,7 @@ begin
     FromIndex := 0;
 
   var ToIndex := EndIndex;
-  if Count-1 < ToIndex then
+  if (Count-1 < ToIndex) or (ToIndex < 0) then
     ToIndex := Count;
 
   SetLength(NewArray, ToIndex - FromIndex);

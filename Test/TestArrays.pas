@@ -141,6 +141,9 @@ type
     [Test]
     procedure TestSlice_Negative_StartIndex;
 
+    [Test]
+    procedure TestSlice_Negative_EndIndex;
+
   end;
 
 implementation
@@ -552,6 +555,19 @@ begin
 
   Assert.AreEqual(1, NewArray.Count);
   Assert.AreEqual('C', NewArray.Items[0]);
+  Assert.AreEqual(3, FSut.Count);
+  Assert.AreEqual('A', FSut.Items[0]);
+  Assert.AreEqual('B', FSut.Items[1]);
+  Assert.AreEqual('C', FSut.Items[2]);
+end;
+
+procedure TTestArrays.TestSlice_Negative_EndIndex;
+begin
+  const NewArray: IArray<string> = FSut.Slice(1, -1);
+
+  Assert.AreEqual(2, NewArray.Count);
+  Assert.AreEqual('B', NewArray.Items[0]);
+  Assert.AreEqual('C', NewArray.Items[1]);
   Assert.AreEqual(3, FSut.Count);
   Assert.AreEqual('A', FSut.Items[0]);
   Assert.AreEqual('B', FSut.Items[1]);
