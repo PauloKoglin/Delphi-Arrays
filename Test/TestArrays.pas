@@ -116,6 +116,9 @@ type
 
     [Test]
     procedure TestShift;
+
+    [Test]
+    procedure TestShift_Empty_Array;
   end;
 
 implementation
@@ -491,6 +494,14 @@ begin
   Assert.AreEqual(2, NewArray.Count);
   Assert.AreEqual('B', NewArray.Items[0]);
   Assert.AreEqual('C', NewArray.Items[1]);
+end;
+
+procedure TTestArrays.TestShift_Empty_Array;
+begin
+  const Sut: IArray<string> = TArrays<string>.From([]);
+  const NewArray = Sut.Shift();
+
+  Assert.AreEqual(0, NewArray.Count);
 end;
 
 procedure TTestArrays.TestToArray;
