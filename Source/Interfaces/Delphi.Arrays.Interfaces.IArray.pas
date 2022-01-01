@@ -61,9 +61,12 @@ type
     function Concat(const Value: T): IArray<T>; overload;
     function Concat(const Values: TArray<T>): IArray<T>; overload;
 
+    function Push(const Element: T): Integer; overload;
+    function Push(const Elements: TArray<T>): Integer; overload;
+
     function Reverse(): IArray<T>;
     function Pop(): IArray<T>;
-    function Lenght(): Integer;
+    function Count(): Integer;
     function ToArray(): TArray<T>;
 
     property Items[const Index: Integer]: T read GetValue;

@@ -35,9 +35,12 @@ type
     function Concat(const Value: T): IArray<T>; overload;
     function Concat(const Values: TArray<T>): IArray<T>; overload;
 
+    function Push(const Element: T): Integer; overload;
+    function Push(const Elements: TArray<T>): Integer; overload;
+
     function Reverse(): IArray<T>;
     function Pop(): IArray<T>;
-    function Lenght(): Integer;
+    function Count(): Integer;
     function ToArray(): TArray<T>;
 
     property Items[const Index: Integer]: T read GetValue;
@@ -188,7 +191,13 @@ begin
   Result := FItems[Index];
 end;
 
-function TArrays<T>.Lenght: Integer;
+function TArrays<T>.Push(const Element: T): Integer;
+begin
+  const NewArray: IArray<T> = Self.Concat(Element);
+  Result := NewArray.Count;
+end;
+
+function TArrays<T>.Count: Integer;
 begin
   Result := Length(FItems);
 end;
@@ -241,6 +250,12 @@ begin
 
   FItems := NewArray;
   Result := Self;
+end;
+
+function TArrays<T>.Push(const Elements: TArray<T>): Integer;
+begin
+  const NewArray: IArray<T> = Self.Concat(Elements);
+  Result := NewArray.Count;
 end;
 
 function TArrays<T>.Reverse: IArray<T>;

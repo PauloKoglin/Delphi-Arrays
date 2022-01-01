@@ -107,6 +107,12 @@ type
 
     [Test]
     procedure TestConcat_Multiple_Values;
+
+    [Test]
+    procedure TestPush_One_Element;
+
+    [Test]
+    procedure TestPush_Multiple_Elements;
   end;
 
 implementation
@@ -128,7 +134,7 @@ procedure TTestArrays.TestConcat_Multiple_Values;
 begin
   const NewArray = FSut.Concat(['NEW_ELEMENT', 'ANOTHER_ELEMENT', 'any', '', '123']);
 
-  Assert.AreEqual(8, NewArray.Lenght);
+  Assert.AreEqual(8, NewArray.Count);
   Assert.AreEqual('A', NewArray.Items[0]);
   Assert.AreEqual('B', NewArray.Items[1]);
   Assert.AreEqual('C', NewArray.Items[2]);
@@ -143,7 +149,7 @@ procedure TTestArrays.TestConcat_One_Value;
 begin
   const NewArray = FSut.Concat('NEW_ELEMENT');
 
-  Assert.AreEqual(4, NewArray.Lenght);
+  Assert.AreEqual(4, NewArray.Count);
   Assert.AreEqual('A', NewArray.Items[0]);
   Assert.AreEqual('B', NewArray.Items[1]);
   Assert.AreEqual('C', NewArray.Items[2]);
@@ -228,7 +234,7 @@ procedure TTestArrays.TestFill;
 begin
   const NewArray = FSut.Fill('D');
 
-  Assert.AreEqual(3, NewArray.Lenght);
+  Assert.AreEqual(3, NewArray.Count);
   Assert.AreEqual('D', NewArray.Items[0]);
   Assert.AreEqual('D', NewArray.Items[1]);
   Assert.AreEqual('D', NewArray.Items[2]);
@@ -238,7 +244,7 @@ procedure TTestArrays.TestFill_EndIndex_Greater_Length;
 begin
   const NewArray = FSut.Fill('D', 0, 5);
 
-  Assert.AreEqual(3, NewArray.Lenght);
+  Assert.AreEqual(3, NewArray.Count);
   Assert.AreEqual('D', NewArray.Items[0]);
   Assert.AreEqual('D', NewArray.Items[1]);
   Assert.AreEqual('D', NewArray.Items[2]);
@@ -249,7 +255,7 @@ procedure TTestArrays.TestFill_EndIndex_Negative;
 begin
   const NewArray = FSut.Fill('D', 0, -1);
 
-  Assert.AreEqual(3, NewArray.Lenght);
+  Assert.AreEqual(3, NewArray.Count);
   Assert.AreEqual('A', NewArray.Items[0]);
   Assert.AreEqual('B', NewArray.Items[1]);
   Assert.AreEqual('C', NewArray.Items[2]);
@@ -259,7 +265,7 @@ procedure TTestArrays.TestFill_From_Middle_To_Last_Item;
 begin
   const NewArray = FSut.Fill('D', 1);
 
-  Assert.AreEqual(3, NewArray.Lenght);
+  Assert.AreEqual(3, NewArray.Count);
   Assert.AreEqual('A', NewArray.Items[0]);
   Assert.AreEqual('D', NewArray.Items[1]);
   Assert.AreEqual('D', NewArray.Items[2]);
@@ -269,7 +275,7 @@ procedure TTestArrays.TestFill_Only_First_Item;
 begin
   const NewArray = FSut.Fill('D', 0, 0);
 
-  Assert.AreEqual(3, NewArray.Lenght);
+  Assert.AreEqual(3, NewArray.Count);
   Assert.AreEqual('D', NewArray.Items[0]);
   Assert.AreEqual('B', NewArray.Items[1]);
   Assert.AreEqual('C', NewArray.Items[2]);
@@ -279,7 +285,7 @@ procedure TTestArrays.TestFill_Only_Last_Item;
 begin
   const NewArray = FSut.Fill('D', 2, 2);
 
-  Assert.AreEqual(3, NewArray.Lenght);
+  Assert.AreEqual(3, NewArray.Count);
   Assert.AreEqual('A', NewArray.Items[0]);
   Assert.AreEqual('B', NewArray.Items[1]);
   Assert.AreEqual('D', NewArray.Items[2]);
@@ -289,7 +295,7 @@ procedure TTestArrays.TestFill_StartIndex_Negative;
 begin
   const NewArray = FSut.Fill('D', -1);
 
-  Assert.AreEqual(3, NewArray.Lenght);
+  Assert.AreEqual(3, NewArray.Count);
   Assert.AreEqual('D', NewArray.Items[0]);
   Assert.AreEqual('D', NewArray.Items[1]);
   Assert.AreEqual('D', NewArray.Items[2]);
@@ -306,7 +312,7 @@ begin
     end
   );
 
-  Assert.AreEqual(0, NewArray.Lenght);
+  Assert.AreEqual(0, NewArray.Count);
 end;
 
 procedure TTestArrays.TestFilter_One_Arg;
@@ -320,7 +326,7 @@ begin
     end
   );
 
-  Assert.AreEqual(3, NewArray.Lenght);
+  Assert.AreEqual(3, NewArray.Count);
   Assert.AreEqual('TO_FILTER', NewArray.Items[0]);
   Assert.AreEqual('TO_FILTER', NewArray.Items[1]);
   Assert.AreEqual('TO_FILTER', NewArray.Items[2]);
@@ -337,7 +343,7 @@ begin
     end
   );
 
-  Assert.AreEqual(1, NewArray.Lenght);
+  Assert.AreEqual(1, NewArray.Count);
   Assert.AreEqual('TO_FILTER', NewArray.Items[0]);
 end;
 
@@ -352,13 +358,13 @@ begin
     end
   );
 
-  Assert.AreEqual(1, NewArray.Lenght);
+  Assert.AreEqual(1, NewArray.Count);
   Assert.AreEqual('TO_FILTER', NewArray.Items[0]);
 end;
 
 procedure TTestArrays.TestFrom;
 begin
-  Assert.AreEqual(3, FSut.Lenght);
+  Assert.AreEqual(3, FSut.Count);
   Assert.AreEqual('A', FSut.Items[0]);
   Assert.AreEqual('B', FSut.Items[1]);
   Assert.AreEqual('C', FSut.Items[2]);
@@ -368,7 +374,29 @@ procedure TTestArrays.TestFrom_Empty;
 begin
   const Sut: IArray<string> = TArrays<string>.From([]);
 
-  Assert.AreEqual(0, Sut.Lenght);
+  Assert.AreEqual(0, Sut.Count);
+end;
+
+procedure TTestArrays.TestPush_One_Element;
+begin
+  const NewLength = FSut.Push('new_Element');
+  Assert.AreEqual(4, NewLength);
+  Assert.AreEqual('A', FSut.Items[0]);
+  Assert.AreEqual('B', FSut.Items[1]);
+  Assert.AreEqual('C', FSut.Items[2]);
+  Assert.AreEqual('new_Element', FSut.Items[3]);
+end;
+
+procedure TTestArrays.TestPush_Multiple_Elements;
+begin
+  const NewLength = FSut.Push(['new_element', '', 'another_one']);
+  Assert.AreEqual(6, NewLength);
+  Assert.AreEqual('A', FSut.Items[0]);
+  Assert.AreEqual('B', FSut.Items[1]);
+  Assert.AreEqual('C', FSut.Items[2]);
+  Assert.AreEqual('new_element', FSut.Items[3]);
+  Assert.AreEqual('', FSut.Items[4]);
+  Assert.AreEqual('another_one', FSut.Items[5]);
 end;
 
 procedure TTestArrays.TestMap_One_Arg;
@@ -380,7 +408,7 @@ begin
     end
   );
 
-  Assert.AreEqual(3, NewArray.Lenght);
+  Assert.AreEqual(3, NewArray.Count);
   Assert.AreEqual('A!', NewArray.Items[0]);
   Assert.AreEqual('B!', NewArray.Items[1]);
   Assert.AreEqual('C!', NewArray.Items[2]);
@@ -395,7 +423,7 @@ begin
     end
   );
 
-  Assert.AreEqual(3, NewArray.Lenght);
+  Assert.AreEqual(3, NewArray.Count);
   Assert.AreEqual('A', NewArray.Items[0]);
   Assert.AreEqual('B!', NewArray.Items[1]);
   Assert.AreEqual('C', NewArray.Items[2]);
@@ -410,7 +438,7 @@ begin
     end
   );
 
-  Assert.AreEqual(3, NewArray.Lenght);
+  Assert.AreEqual(3, NewArray.Count);
   Assert.AreEqual('A!', NewArray.Items[0]);
   Assert.AreEqual('B', NewArray.Items[1]);
   Assert.AreEqual('C', NewArray.Items[2]);
@@ -420,7 +448,7 @@ procedure TTestArrays.TestPop;
 begin
   const NewArray = FSut.Pop();
 
-  Assert.AreEqual(2, NewArray.Lenght);
+  Assert.AreEqual(2, NewArray.Count);
   Assert.AreEqual('A', NewArray.Items[0]);
   Assert.AreEqual('B', NewArray.Items[1]);
 end;
@@ -431,7 +459,7 @@ begin
 
   const NewArray = Sut.Pop();
 
-  Assert.AreEqual(0, NewArray.Lenght);
+  Assert.AreEqual(0, NewArray.Count);
 end;
 
 procedure TTestArrays.TestPop_Only_One_Item;
@@ -440,14 +468,14 @@ begin
 
   const NewArray = Sut.Pop();
 
-  Assert.AreEqual(0, NewArray.Lenght);
+  Assert.AreEqual(0, NewArray.Count);
 end;
 
 procedure TTestArrays.TestReverse;
 begin
   const NewArray = FSut.Reverse();
 
-  Assert.AreEqual(3, NewArray.Lenght);
+  Assert.AreEqual(3, NewArray.Count);
   Assert.AreEqual('C', NewArray.Items[0]);
   Assert.AreEqual('B', NewArray.Items[1]);
   Assert.AreEqual('A', NewArray.Items[2]);
