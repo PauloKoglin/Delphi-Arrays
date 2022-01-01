@@ -119,6 +119,9 @@ type
 
     [Test]
     procedure TestShift_Empty_Array;
+
+    [Test]
+    procedure TestShift_One_Element_Array;
   end;
 
 implementation
@@ -499,6 +502,14 @@ end;
 procedure TTestArrays.TestShift_Empty_Array;
 begin
   const Sut: IArray<string> = TArrays<string>.From([]);
+  const NewArray = Sut.Shift();
+
+  Assert.AreEqual(0, NewArray.Count);
+end;
+
+procedure TTestArrays.TestShift_One_Element_Array;
+begin
+  const Sut: IArray<string> = TArrays<string>.From(['A']);
   const NewArray = Sut.Shift();
 
   Assert.AreEqual(0, NewArray.Count);
