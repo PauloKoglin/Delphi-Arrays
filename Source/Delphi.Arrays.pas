@@ -304,11 +304,16 @@ end;
 
 function TArrays<T>.Slice(const StartIndex, EndIndex: Integer): IArray<T>;
 begin
+  const Count = Length(FItems);
   var NewArray: TArray<T> := [];
   SetLength(NewArray, EndIndex - StartIndex);
 
+  var ToIndex := EndIndex;
+  if Count-1 < ToIndex then
+    ToIndex := Count;
+
   var Index: Integer := 0;
-  for var i := startIndex to endIndex-1 do
+  for var i := startIndex to ToIndex-1 do
   begin
     NewArray[Index] := FItems[i];
     Inc(Index);

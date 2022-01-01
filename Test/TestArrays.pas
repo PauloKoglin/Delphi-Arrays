@@ -132,6 +132,9 @@ type
     [Test]
     procedure TestSlice_Only_StartIndex;
 
+    [Test]
+    procedure TestSlice_EndIndex_Greater_Then_Max_Index;
+
   end;
 
 implementation
@@ -531,6 +534,18 @@ begin
 
   Assert.AreEqual(1, NewArray.Count);
   Assert.AreEqual('B', NewArray.Items[0]);
+  Assert.AreEqual(3, FSut.Count);
+  Assert.AreEqual('A', FSut.Items[0]);
+  Assert.AreEqual('B', FSut.Items[1]);
+  Assert.AreEqual('C', FSut.Items[2]);
+end;
+
+procedure TTestArrays.TestSlice_EndIndex_Greater_Then_Max_Index;
+begin
+  const NewArray: IArray<string> = FSut.Slice(2, 3);
+
+  Assert.AreEqual(1, NewArray.Count);
+  Assert.AreEqual('C', NewArray.Items[0]);
   Assert.AreEqual(3, FSut.Count);
   Assert.AreEqual('A', FSut.Items[0]);
   Assert.AreEqual('B', FSut.Items[1]);
