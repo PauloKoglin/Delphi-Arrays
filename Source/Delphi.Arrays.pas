@@ -306,14 +306,18 @@ function TArrays<T>.Slice(const StartIndex, EndIndex: Integer): IArray<T>;
 begin
   const Count = Length(FItems);
   var NewArray: TArray<T> := [];
-  SetLength(NewArray, EndIndex - StartIndex);
+
+  var FromIndex := StartIndex;
+  if FromIndex < 0 then
+    FromIndex := 0;
 
   var ToIndex := EndIndex;
   if Count-1 < ToIndex then
     ToIndex := Count;
 
+  SetLength(NewArray, ToIndex - FromIndex);
   var Index: Integer := 0;
-  for var i := startIndex to ToIndex-1 do
+  for var i := FromIndex to ToIndex-1 do
   begin
     NewArray[Index] := FItems[i];
     Inc(Index);
