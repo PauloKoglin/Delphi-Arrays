@@ -39,6 +39,21 @@ type
   /// <returns> Results of callback processing </returns>
   TMapCallbackFnElementIndex<T> = reference to function(const Element: T; const Index: Integer): T;
 
+  /// <summary> Callback for ForEach() procedure </summary>
+  /// <param name="Element"> Current element being processed in the array </param>
+  /// <param name="Index"> Current index being processed in the array </param>
+  /// <param name="Elements"> Original array being processed </param>
+  TForEachCallbackFn<T> = reference to procedure(const Element: T; const Index: Integer; const Elements: TArray<T>);
+
+  /// <summary> Callback for ForEach() procedure </summary>
+  /// <param name="Element"> Current element being processed in the array </param>
+  TForEachCallbackFnElement<T> = reference to procedure(const Element: T);
+
+  /// <summary> Callback for ForEach() procedure </summary>
+  /// <param name="Element"> Current element being processed in the array </param>
+  /// <param name="Index"> Current index being processed in the array </param>
+  TForEachCallbackFnElementIndex<T> = reference to procedure(const Element: T; const Index: Integer);
+
 implementation
 
 end.

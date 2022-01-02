@@ -45,6 +45,8 @@ type
     function Unshift(const Element: T): Integer; overload;
     function Unshift(const Elements: TArray<T>): Integer; overload;
 
+    procedure ForEach(const Callback: TForEachCallbackFn<T>);
+
     function Reverse(): IArray<T>;
     function Pop(): IArray<T>;
     function Shift(): IArray<T>;
@@ -177,6 +179,12 @@ begin
       Result := Callback(Element);
     end
   );
+end;
+
+procedure TArrays<T>.ForEach(const Callback: TForEachCallbackFn<T>);
+begin
+  for var i := 0 to Length(FItems)-1 do
+    Callback(FItems[i], i, FItems);
 end;
 
 function TArrays<T>.Fill(const Value: T; const StartIndex: Integer): IArray<T>;
