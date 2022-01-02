@@ -168,6 +168,9 @@ type
     [Test]
     procedure TestJoin_Default_Separator;
 
+    [Test]
+    procedure TestJoin_Custom_Separator;
+
   end;
 
 implementation
@@ -504,6 +507,12 @@ begin
   const Sut: IArray<string> = TArrays<string>.From([]);
 
   Assert.AreEqual(0, Sut.Count);
+end;
+
+procedure TTestArrays.TestJoin_Custom_Separator;
+begin
+  const Actual = FSut.Join('-');
+  Assert.AreEqual('A-B-C', Actual);
 end;
 
 procedure TTestArrays.TestJoin_Default_Separator;
