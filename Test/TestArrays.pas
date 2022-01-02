@@ -162,6 +162,9 @@ type
     [Test]
     procedure TestForEach_One_Arg;
 
+    [Test]
+    procedure TestForEach_Empty_Array;
+
   end;
 
 implementation
@@ -429,6 +432,21 @@ begin
   Assert.AreEqual(NewArray[0], FSut.Values[0]);
   Assert.AreEqual(NewArray[1], FSut.Values[1]);
   Assert.AreEqual(NewArray[2], FSut.Values[2]);
+end;
+
+procedure TTestArrays.TestForEach_Empty_Array;
+begin
+  const Sut: IArray<string> = TArrays<string>.From([]);
+  var CalledTimes := 0;
+
+  Sut.ForEach(
+    procedure(const Element: string)
+    begin
+      Inc(CalledTimes);
+    end
+  );
+
+  Assert.AreEqual(0, CalledTimes);
 end;
 
 procedure TTestArrays.TestForEach_One_Arg;
