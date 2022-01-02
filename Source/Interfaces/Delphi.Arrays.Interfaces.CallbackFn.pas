@@ -54,6 +54,12 @@ type
   /// <param name="Index"> Current index being processed in the array </param>
   TForEachCallbackFnElementIndex<T> = reference to procedure(const Element: T; const Index: Integer);
 
+  /// <summary> Callback for ForEach() procedure </summary>
+  /// <param name="Element"> Current element being processed in the array </param>
+  /// <param name="Index"> Current index being processed in the array </param>
+  /// <param name="Elements"> Original array being processed </param>
+  TReduceCallbackFn<T,R> = reference to function(const PreviousValue: R; const CurrentValue: T; const CurrentIndex: Integer): R;
+
 implementation
 
 end.

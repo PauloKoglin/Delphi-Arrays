@@ -174,6 +174,9 @@ type
     [Test]
     procedure TestJoin_Empty_Array;
 
+    [Test]
+    procedure TestReduce;
+
   end;
 
 implementation
@@ -619,6 +622,17 @@ begin
   const NewArray = Sut.Pop();
 
   Assert.AreEqual(0, NewArray.Count);
+end;
+
+procedure TTestArrays.TestReduce;
+begin
+  const ReduceResult = FSut.Reduce(
+    function(const PreviousValue: string; const CurrentValue: string; const CurrentIndex: Integer): string
+    begin
+      Result := PreviousValue + IntToStr(CurrentIndex) + CurrentValue;
+    end
+  );
+  Assert.AreEqual('A1B2C', ReduceResult);
 end;
 
 procedure TTestArrays.TestReverse;

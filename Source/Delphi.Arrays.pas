@@ -49,6 +49,8 @@ type
     procedure ForEach(const Callback: TForEachCallbackFnElementIndex<T>); overload;
     procedure ForEach(const Callback: TForEachCallbackFnElement<T>); overload;
 
+    function Reduce(const Callback: TReduceCallbackFn<T,T>): T;
+
     function Join(const Separator: String = ','): string;
     function Reverse(): IArray<T>;
     function Pop(): IArray<T>;
@@ -332,6 +334,13 @@ function TArrays<T>.Push(const Elements: TArray<T>): Integer;
 begin
   const NewArray: IArray<T> = Self.Concat(Elements);
   Result := NewArray.Count;
+end;
+
+function TArrays<T>.Reduce(const Callback: TReduceCallbackFn<T,T>): T;
+begin
+  Result := Callback(FItems[0], FItems[1], 1);
+  for var i := 2 to Length(FItems)-1 do
+    Result := Callback(Result, FItems[i], i);
 end;
 
 function TArrays<T>.Reverse: IArray<T>;

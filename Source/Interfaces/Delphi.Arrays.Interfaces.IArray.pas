@@ -42,6 +42,8 @@ type
     procedure ForEach(const Callback: TForEachCallbackFnElementIndex<T>); overload;
     procedure ForEach(const Callback: TForEachCallbackFnElement<T>); overload;
 
+    function Reduce(const Callback: TReduceCallbackFn<T,T>): T;
+
     function Join(const Separator: String = ','): string;
     function Reverse(): IArray<T>;
     function Pop(): IArray<T>;
