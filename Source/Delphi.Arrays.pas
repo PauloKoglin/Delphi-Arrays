@@ -195,9 +195,12 @@ end;
 
 function TArrays<T>.Unshift(const Elements: TArray<T>): Integer;
 begin
-  var NewArray: TArray<T> := [];
-  const NewElementsLength = Length(Elements);
   const CurrentLength = Length(FItems);
+  const NewElementsLength = Length(Elements);
+  if NewElementsLength = 0 then
+    Exit(CurrentLength);
+
+  var NewArray: TArray<T> := [];
   SetLength(NewArray, CurrentLength + NewElementsLength);
 
   for var i := 0 to NewElementsLength-1 do

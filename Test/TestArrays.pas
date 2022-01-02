@@ -150,6 +150,9 @@ type
     [Test]
     procedure TestUnshift_Multiple_Elements;
 
+    [Test]
+    procedure TestUnshift_Empty_Array;
+
   end;
 
 implementation
@@ -651,6 +654,15 @@ begin
   Assert.AreEqual('A', FSut.Items[1]);
   Assert.AreEqual('B', FSut.Items[2]);
   Assert.AreEqual('C', FSut.Items[3]);
+end;
+
+procedure TTestArrays.TestUnshift_Empty_Array;
+begin
+  const NewLength = FSut.Unshift([]);
+  Assert.AreEqual(3, NewLength);
+  Assert.AreEqual('A', FSut.Items[0]);
+  Assert.AreEqual('B', FSut.Items[1]);
+  Assert.AreEqual('C', FSut.Items[2]);
 end;
 
 procedure TTestArrays.TestUnshift_Multiple_Elements;
