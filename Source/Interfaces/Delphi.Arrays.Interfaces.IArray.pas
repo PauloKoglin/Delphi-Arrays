@@ -40,6 +40,7 @@ type
 
     procedure ForEach(const Callback: TForEachCallbackFn<T>); overload;
     procedure ForEach(const Callback: TForEachCallbackFnElementIndex<T>); overload;
+    procedure ForEach(const Callback: TForEachCallbackFnElement<T>); overload;
 
     function Reverse(): IArray<T>;
     function Pop(): IArray<T>;

@@ -47,6 +47,7 @@ type
 
     procedure ForEach(const Callback: TForEachCallbackFn<T>); overload;
     procedure ForEach(const Callback: TForEachCallbackFnElementIndex<T>); overload;
+    procedure ForEach(const Callback: TForEachCallbackFnElement<T>); overload;
 
     function Reverse(): IArray<T>;
     function Pop(): IArray<T>;
@@ -381,6 +382,16 @@ begin
   end;
 
   Result := TArrays<T>.From(NewArray);
+end;
+
+procedure TArrays<T>.ForEach(const Callback: TForEachCallbackFnElement<T>);
+begin
+  Self.ForEach(
+    procedure(const Element: T; const Index: Integer; const Elements: TArray<T>)
+    begin
+      Callback(Element);
+    end
+  );
 end;
 
 end.

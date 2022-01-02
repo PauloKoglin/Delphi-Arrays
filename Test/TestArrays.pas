@@ -154,10 +154,13 @@ type
     procedure TestUnshift_Empty_Array;
 
     [Test]
-    procedure TestForEach;
+    procedure TestForEach_Tree_Args;
 
     [Test]
     procedure TestForEach_Two_Args;
+
+    [Test]
+    procedure TestForEach_One_Arg;
 
   end;
 
@@ -408,7 +411,7 @@ begin
   Assert.AreEqual('TO_FILTER', NewArray.Values[0]);
 end;
 
-procedure TTestArrays.TestForEach;
+procedure TTestArrays.TestForEach_Tree_Args;
 begin
   var ProcessedIndex := 0;
   var NewArray: TArray<string> := [];
@@ -419,6 +422,25 @@ begin
     begin
       if (Index = ProcessedIndex) and (Elements[Index] = FSut.Values[Index]) then
         NewArray[Index] := Element;
+      Inc(ProcessedIndex);
+    end
+  );
+
+  Assert.AreEqual(NewArray[0], FSut.Values[0]);
+  Assert.AreEqual(NewArray[1], FSut.Values[1]);
+  Assert.AreEqual(NewArray[2], FSut.Values[2]);
+end;
+
+procedure TTestArrays.TestForEach_One_Arg;
+begin
+  var ProcessedIndex := 0;
+  var NewArray: TArray<string> := [];
+  SetLength(NewArray, FSut.Count);
+
+  FSut.ForEach(
+    procedure(const Element: string)
+    begin
+      NewArray[ProcessedIndex] := Element;
       Inc(ProcessedIndex);
     end
   );
