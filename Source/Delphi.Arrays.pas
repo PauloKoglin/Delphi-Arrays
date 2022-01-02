@@ -259,6 +259,9 @@ end;
 
 function TArrays<T>.Join(const Separator: String): string;
 begin
+  if Length(FItems) = 0 then
+    Exit('');
+
   Result := TValue.From<T>(FItems[0]).ToString();
   for var i := 1 to Length(FItems)-1 do
     Result := Result + Separator + TValue.From<T>(FItems[i]).ToString();

@@ -171,6 +171,9 @@ type
     [Test]
     procedure TestJoin_Custom_Separator;
 
+    [Test]
+    procedure TestJoin_Empty_Array;
+
   end;
 
 implementation
@@ -519,6 +522,11 @@ procedure TTestArrays.TestJoin_Default_Separator;
 begin
   const Actual = FSut.Join();
   Assert.AreEqual('A,B,C', Actual);
+end;
+
+procedure TTestArrays.TestJoin_Empty_Array;
+begin
+  Assert.AreEqual('', TArrays<string>.From([]).Join(' '));
 end;
 
 procedure TTestArrays.TestPush_One_Element;
