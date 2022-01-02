@@ -180,6 +180,9 @@ type
     [Test]
     procedure TestReduce_InitialValue;
 
+    [Test]
+    procedure TestReduce_With_CurrentIndex;
+
   end;
 
 implementation
@@ -648,6 +651,17 @@ begin
     'INITIAL_VALUE-'
   );
   Assert.AreEqual('INITIAL_VALUE-0A1B2C', ReduceResult);
+end;
+
+procedure TTestArrays.TestReduce_With_CurrentIndex;
+begin
+  const ReduceResult = FSut.Reduce(
+    function(const PreviousValue: string; const CurrentValue: string; const CurrentIndex: Integer): string
+    begin
+      Result := PreviousValue + IntToStr(CurrentIndex) + CurrentValue;
+    end
+  );
+  Assert.AreEqual('A1B2C', ReduceResult);
 end;
 
 procedure TTestArrays.TestReverse;
