@@ -41,7 +41,8 @@ type
     function Slice(const StartIndex: Integer; const EndIndex: Integer): IArray<T>; overload;
     function Slice(const StartIndex: Integer = 0): IArray<T>; overload;
 
-    function Unshift(const Element: T): Integer;
+    function Unshift(const Element: T): Integer; overload;
+    function Unshift(const Elements: TArray<T>): Integer; overload;
 
     function Reverse(): IArray<T>;
     function Pop(): IArray<T>;
@@ -190,6 +191,24 @@ end;
 function TArrays<T>.ToArray: TArray<T>;
 begin
   Result := FItems;
+end;
+
+function TArrays<T>.Unshift(const Elements: TArray<T>): Integer;
+begin
+  var NewArray: TArray<T> := [];
+  const NewElementsLength = Length(Elements);
+  const CurrentLength = Length(FItems);
+  SetLength(NewArray, CurrentLength + NewElementsLength);
+
+  for var i := 0 to NewElementsLength-1 do
+    NewArray[i] := Elements[i];
+
+  const StartIndex = NewElementsLength;
+  for var i := 0 to CurrentLength-1 do
+    NewArray[StartIndex+i] := FItems[i];
+
+  FItems := NewArray;
+  Result := Length(FItems);
 end;
 
 function TArrays<T>.Unshift(const Element: T): Integer;

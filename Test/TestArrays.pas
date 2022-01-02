@@ -147,6 +147,9 @@ type
     [Test]
     procedure TestUnshift;
 
+    [Test]
+    procedure TestUnshift_Multiple_Elements;
+
   end;
 
 implementation
@@ -648,6 +651,18 @@ begin
   Assert.AreEqual('A', FSut.Items[1]);
   Assert.AreEqual('B', FSut.Items[2]);
   Assert.AreEqual('C', FSut.Items[3]);
+end;
+
+procedure TTestArrays.TestUnshift_Multiple_Elements;
+begin
+  const NewLength = FSut.Unshift(['new_element', '', 'another_element']);
+  Assert.AreEqual(6, NewLength);
+  Assert.AreEqual('new_element', FSut.Items[0]);
+  Assert.AreEqual('', FSut.Items[1]);
+  Assert.AreEqual('another_element', FSut.Items[2]);
+  Assert.AreEqual('A', FSut.Items[3]);
+  Assert.AreEqual('B', FSut.Items[4]);
+  Assert.AreEqual('C', FSut.Items[5]);
 end;
 
 initialization

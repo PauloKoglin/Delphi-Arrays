@@ -67,7 +67,8 @@ type
     function Slice(const StartIndex: Integer; const EndIndex: Integer): IArray<T>; overload;
     function Slice(const StartIndex: Integer = 0): IArray<T>; overload;
 
-    function Unshift(const Element: T): Integer;
+    function Unshift(const Element: T): Integer; overload;
+    function Unshift(const Element: TArray<T>): Integer; overload;
 
     function Reverse(): IArray<T>;
     function Pop(): IArray<T>;
