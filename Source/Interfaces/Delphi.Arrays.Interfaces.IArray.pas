@@ -38,7 +38,8 @@ type
     function Unshift(const Element: T): Integer; overload;
     function Unshift(const Element: TArray<T>): Integer; overload;
 
-    procedure ForEach(const Callback: TForEachCallbackFn<T>);
+    procedure ForEach(const Callback: TForEachCallbackFn<T>); overload;
+    procedure ForEach(const Callback: TForEachCallbackFnElementIndex<T>); overload;
 
     function Reverse(): IArray<T>;
     function Pop(): IArray<T>;

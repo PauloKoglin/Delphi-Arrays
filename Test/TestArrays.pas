@@ -156,6 +156,9 @@ type
     [Test]
     procedure TestForEach;
 
+    [Test]
+    procedure TestForEach_Two_Args;
+
   end;
 
 implementation
@@ -415,6 +418,26 @@ begin
     procedure(const Element: string; const Index: Integer; const Elements: TArray<string>)
     begin
       if (Index = ProcessedIndex) and (Elements[Index] = FSut.Values[Index]) then
+        NewArray[Index] := Element;
+      Inc(ProcessedIndex);
+    end
+  );
+
+  Assert.AreEqual(NewArray[0], FSut.Values[0]);
+  Assert.AreEqual(NewArray[1], FSut.Values[1]);
+  Assert.AreEqual(NewArray[2], FSut.Values[2]);
+end;
+
+procedure TTestArrays.TestForEach_Two_Args;
+begin
+  var ProcessedIndex := 0;
+  var NewArray: TArray<string> := [];
+  SetLength(NewArray, FSut.Count);
+
+  FSut.ForEach(
+    procedure(const Element: string; const Index: Integer)
+    begin
+      if Index = ProcessedIndex then
         NewArray[Index] := Element;
       Inc(ProcessedIndex);
     end

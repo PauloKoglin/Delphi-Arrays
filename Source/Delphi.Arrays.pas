@@ -45,7 +45,8 @@ type
     function Unshift(const Element: T): Integer; overload;
     function Unshift(const Elements: TArray<T>): Integer; overload;
 
-    procedure ForEach(const Callback: TForEachCallbackFn<T>);
+    procedure ForEach(const Callback: TForEachCallbackFn<T>); overload;
+    procedure ForEach(const Callback: TForEachCallbackFnElementIndex<T>); overload;
 
     function Reverse(): IArray<T>;
     function Pop(): IArray<T>;
@@ -177,6 +178,16 @@ begin
     function(Element: T; Index: Integer; const Elements: TArray<T>): Boolean
     begin
       Result := Callback(Element);
+    end
+  );
+end;
+
+procedure TArrays<T>.ForEach(const Callback: TForEachCallbackFnElementIndex<T>);
+begin
+  Self.ForEach(
+    procedure(const Element: T; const Index: Integer; const Elements: TArray<T>)
+    begin
+      Callback(Element, Index);
     end
   );
 end;
