@@ -56,6 +56,8 @@ type
     function Reduce(const Callback: TReduceCallbackFnWithPreviousAndCurrentValue<T,T>): T; overload;
     function Reduce(const Callback: TReduceCallbackFnWithPreviousAndCurrentValue<T,T>; const InitialValue: T): T; overload;
 
+    function ReduceString(const Callback: TReduceCallbackFn<T,string>; const InitialValue: string = ''): string;
+
     function Join(const Separator: String = ','): string;
     function Reverse(): IArray<T>;
     function Pop(): IArray<T>;
@@ -462,9 +464,7 @@ begin
   );
 end;
 
-function TArrays<T>.Reduce(
-  const Callback: TReduceCallbackFnWithPreviousAndCurrentValue<T, T>;
-  const InitialValue: T): T;
+function TArrays<T>.Reduce(const Callback: TReduceCallbackFnWithPreviousAndCurrentValue<T, T>; const InitialValue: T): T;
 begin
   Result := Self.Reduce(
     function(const PreviousValue: T; const CurrentValue: T; const CurrentIndex: Integer; const Elements: TArray<T>): T
@@ -473,6 +473,13 @@ begin
     end,
     InitialValue
   );
+end;
+
+function TArrays<T>.ReduceString(const Callback: TReduceCallbackFn<T, string>; const InitialValue: string): string;
+begin
+  Result := Callback(InitialValue, FItems[0], 0, FItems);
+  for var i := 1 to Length(FItems)-1 do
+    Result := Callback(Result, FItems[i], i, FItems);
 end;
 
 end.

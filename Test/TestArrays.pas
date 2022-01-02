@@ -192,6 +192,9 @@ type
     [Test]
     procedure TestReduce_Two_Args_InitialValue;
 
+    [Test]
+    procedure TestReduceString_All_Args;
+
   end;
 
 implementation
@@ -637,6 +640,19 @@ begin
   const NewArray = Sut.Pop();
 
   Assert.AreEqual(0, NewArray.Count);
+end;
+
+procedure TTestArrays.TestReduceString_All_Args;
+begin
+  const Sut: IArray<Integer> = TArrays<Integer>.From([10, 20, 30]);
+  const ReduceResult = Sut.ReduceString(
+    function(const PreviousValue: string; const CurrentValue: Integer; const CurrentIndex: Integer; const Elements: TArray<Integer>): string
+    begin
+      Result := PreviousValue + '-' + IntToStr(CurrentIndex * CurrentValue);
+    end,
+    'INITIAL_VALUE'
+  );
+  Assert.AreEqual('INITIAL_VALUE-0-20-60', ReduceResult);
 end;
 
 procedure TTestArrays.TestReduce_All_Args;

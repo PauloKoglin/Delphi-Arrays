@@ -42,13 +42,17 @@ type
     procedure ForEach(const Callback: TForEachCallbackFnElementIndex<T>); overload;
     procedure ForEach(const Callback: TForEachCallbackFnElement<T>); overload;
 
+    // Reducers with same result as the elements
     function Reduce(const Callback: TReduceCallbackFn<T,T>): T; overload;
     function Reduce(const Callback: TReduceCallbackFn<T,T>; const InitialValue: T): T; overload;
     function Reduce(const Callback: TReduceCallbackFnWithCurrentIndex<T,T>): T; overload;
     function Reduce(const Callback: TReduceCallbackFnWithCurrentIndex<T,T>; const InitialValue: T): T; overload;
     function Reduce(const Callback: TReduceCallbackFnWithPreviousAndCurrentValue<T,T>): T; overload;
     function Reduce(const Callback: TReduceCallbackFnWithPreviousAndCurrentValue<T,T>; const InitialValue: T): T; overload;
-    
+
+    // Reducers with result type different from the elements. They start always with the InitialValue.
+    function ReduceString(const Callback: TReduceCallbackFn<T,string>; const InitialValue: string = ''): string;
+
     function Join(const Separator: String = ','): string;
     function Reverse(): IArray<T>;
     function Pop(): IArray<T>;
