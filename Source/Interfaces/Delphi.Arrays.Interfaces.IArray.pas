@@ -45,6 +45,7 @@ type
     function Reduce(const Callback: TReduceCallbackFn<T,T>): T; overload;
     function Reduce(const Callback: TReduceCallbackFn<T,T>; const InitialValue: T): T; overload;
     function Reduce(const Callback: TReduceCallbackFnWithCurrentIndex<T,T>): T; overload;
+    function Reduce(const Callback: TReduceCallbackFnWithCurrentIndex<T,T>; const InitialValue: T): T; overload;
     
     function Join(const Separator: String = ','): string;
     function Reverse(): IArray<T>;

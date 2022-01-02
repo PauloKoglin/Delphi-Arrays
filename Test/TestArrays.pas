@@ -183,6 +183,9 @@ type
     [Test]
     procedure TestReduce_With_CurrentIndex;
 
+    [Test]
+    procedure TestReduce_InitialValue_With_CurrentIndex;
+
   end;
 
 implementation
@@ -645,6 +648,18 @@ procedure TTestArrays.TestReduce_InitialValue;
 begin
   const ReduceResult = FSut.Reduce(
     function(const PreviousValue: string; const CurrentValue: string; const CurrentIndex: Integer; const Elements: TArray<string>): string
+    begin
+      Result := PreviousValue + IntToStr(CurrentIndex) + CurrentValue;
+    end,
+    'INITIAL_VALUE-'
+  );
+  Assert.AreEqual('INITIAL_VALUE-0A1B2C', ReduceResult);
+end;
+
+procedure TTestArrays.TestReduce_InitialValue_With_CurrentIndex;
+begin
+  const ReduceResult = FSut.Reduce(
+    function(const PreviousValue: string; const CurrentValue: string; const CurrentIndex: Integer): string
     begin
       Result := PreviousValue + IntToStr(CurrentIndex) + CurrentValue;
     end,
