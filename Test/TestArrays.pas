@@ -189,6 +189,9 @@ type
     [Test]
     procedure TestReduce_Two_Args;
 
+    [Test]
+    procedure TestReduce_Two_Args_InitialValue;
+
   end;
 
 implementation
@@ -680,6 +683,18 @@ begin
     end
   );
   Assert.AreEqual('A B C', ReduceResult);
+end;
+
+procedure TTestArrays.TestReduce_Two_Args_InitialValue;
+begin
+  const ReduceResult = FSut.Reduce(
+    function(const PreviousValue: string; const CurrentValue: string): string
+    begin
+      Result := PreviousValue + ' ' + CurrentValue;
+    end,
+    'INITIAL_VALUE-'
+  );
+  Assert.AreEqual('INITIAL_VALUE- A B C', ReduceResult);
 end;
 
 procedure TTestArrays.TestReduce_With_CurrentIndex;
