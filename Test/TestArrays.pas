@@ -175,16 +175,16 @@ type
     procedure TestJoin_Empty_Array;
 
     [Test]
-    procedure TestReduce;
+    procedure TestReduce_All_Args;
 
     [Test]
-    procedure TestReduce_InitialValue;
+    procedure TestReduce_All_Args_InitialValue;
 
     [Test]
-    procedure TestReduce_With_CurrentIndex;
+    procedure TestReduce_Three_Args;
 
     [Test]
-    procedure TestReduce_InitialValue_With_CurrentIndex;
+    procedure TestReduce_Three_Args_InitialValue;
 
     [Test]
     procedure TestReduce_Two_Args;
@@ -639,7 +639,7 @@ begin
   Assert.AreEqual(0, NewArray.Count);
 end;
 
-procedure TTestArrays.TestReduce;
+procedure TTestArrays.TestReduce_All_Args;
 begin
   const ReduceResult = FSut.Reduce(
     function(const PreviousValue: string; const CurrentValue: string; const CurrentIndex: Integer; const Elements: TArray<string>): string
@@ -650,7 +650,7 @@ begin
   Assert.AreEqual('A1B2C', ReduceResult);
 end;
 
-procedure TTestArrays.TestReduce_InitialValue;
+procedure TTestArrays.TestReduce_All_Args_InitialValue;
 begin
   const ReduceResult = FSut.Reduce(
     function(const PreviousValue: string; const CurrentValue: string; const CurrentIndex: Integer; const Elements: TArray<string>): string
@@ -662,7 +662,7 @@ begin
   Assert.AreEqual('INITIAL_VALUE-0A1B2C', ReduceResult);
 end;
 
-procedure TTestArrays.TestReduce_InitialValue_With_CurrentIndex;
+procedure TTestArrays.TestReduce_Three_Args_InitialValue;
 begin
   const ReduceResult = FSut.Reduce(
     function(const PreviousValue: string; const CurrentValue: string; const CurrentIndex: Integer): string
@@ -697,7 +697,7 @@ begin
   Assert.AreEqual('INITIAL_VALUE- A B C', ReduceResult);
 end;
 
-procedure TTestArrays.TestReduce_With_CurrentIndex;
+procedure TTestArrays.TestReduce_Three_Args;
 begin
   const ReduceResult = FSut.Reduce(
     function(const PreviousValue: string; const CurrentValue: string; const CurrentIndex: Integer): string
