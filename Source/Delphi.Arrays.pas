@@ -50,7 +50,7 @@ type
     function Count(): Integer;
     function ToArray(): TArray<T>;
 
-    property Items[const Index: Integer]: T read GetValue;
+    property Values[const Index: Integer]: T read GetValue;
   end;
 
 implementation
