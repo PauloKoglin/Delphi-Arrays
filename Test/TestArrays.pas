@@ -514,14 +514,12 @@ end;
 
 procedure TTestArrays.TestJoin_Custom_Separator;
 begin
-  const Actual = FSut.Join('-');
-  Assert.AreEqual('A-B-C', Actual);
+  Assert.AreEqual('A-B-C', FSut.Join('-'));
 end;
 
 procedure TTestArrays.TestJoin_Default_Separator;
 begin
-  const Actual = FSut.Join();
-  Assert.AreEqual('A,B,C', Actual);
+  Assert.AreEqual('A,B,C', FSut.Join());
 end;
 
 procedure TTestArrays.TestJoin_Empty_Array;
