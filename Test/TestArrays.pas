@@ -144,6 +144,9 @@ type
     [Test]
     procedure TestSlice_Negative_EndIndex;
 
+    [Test]
+    procedure TestUnshift;
+
   end;
 
 implementation
@@ -636,6 +639,16 @@ begin
   Assert.AreEqual('C', NewArray[2]);
 end;
 
+
+procedure TTestArrays.TestUnshift;
+begin
+  const NewLength = FSut.Unshift('new_Element');
+  Assert.AreEqual(4, NewLength);
+  Assert.AreEqual('new_Element', FSut.Items[0]);
+  Assert.AreEqual('A', FSut.Items[1]);
+  Assert.AreEqual('B', FSut.Items[2]);
+  Assert.AreEqual('C', FSut.Items[3]);
+end;
 
 initialization
   TDUnitX.RegisterTestFixture(TTestArrays);
