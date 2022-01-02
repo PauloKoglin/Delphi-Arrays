@@ -85,6 +85,18 @@ type
   /// </returns>
   TReduceCallbackFnWithCurrentIndex<T,R> = reference to function(const PreviousValue: R; const CurrentValue: T; const CurrentIndex: Integer): R;
 
+  /// <summary> Callback for Reduce() function </summary>
+  /// <param name="PreviousValue"> The value resulting from the previous call to Callback.
+  ///  On first call, initialValue if specified, otherwise the value of array[0].
+  /// </param>
+  /// <param name="CurrentValue"> The value of the current element.
+  ///  On first call, the value of array[0] if an initialValue was specified, otherwise the value of array[1].
+  /// </param>
+  /// <returns>
+  ///  The value that results from running the “reducer” callback function to completion over the entire array.
+  /// </returns>
+  TReduceCallbackFnWithPreviousAndCurrentValue<T,R> = reference to function(const PreviousValue: R; const CurrentValue: T): R;
+
 implementation
 
 end.
