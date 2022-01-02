@@ -177,6 +177,9 @@ type
     [Test]
     procedure TestReduce;
 
+    [Test]
+    procedure TestReduce_InitialValue;
+
   end;
 
 implementation
@@ -627,12 +630,24 @@ end;
 procedure TTestArrays.TestReduce;
 begin
   const ReduceResult = FSut.Reduce(
-    function(const PreviousValue: string; const CurrentValue: string; const CurrentIndex: Integer): string
+    function(const PreviousValue: string; const CurrentValue: string; const CurrentIndex: Integer; const Elements: TArray<string>): string
     begin
       Result := PreviousValue + IntToStr(CurrentIndex) + CurrentValue;
     end
   );
   Assert.AreEqual('A1B2C', ReduceResult);
+end;
+
+procedure TTestArrays.TestReduce_InitialValue;
+begin
+  const ReduceResult = FSut.Reduce(
+    function(const PreviousValue: string; const CurrentValue: string; const CurrentIndex: Integer; const Elements: TArray<string>): string
+    begin
+      Result := PreviousValue + IntToStr(CurrentIndex) + CurrentValue;
+    end,
+    'INITIAL_VALUE-'
+  );
+  Assert.AreEqual('INITIAL_VALUE-0A1B2C', ReduceResult);
 end;
 
 procedure TTestArrays.TestReverse;

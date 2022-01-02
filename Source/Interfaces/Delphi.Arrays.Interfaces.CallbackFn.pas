@@ -58,7 +58,7 @@ type
   /// <param name="Element"> Current element being processed in the array </param>
   /// <param name="Index"> Current index being processed in the array </param>
   /// <param name="Elements"> Original array being processed </param>
-  TReduceCallbackFn<T,R> = reference to function(const PreviousValue: R; const CurrentValue: T; const CurrentIndex: Integer): R;
+  TReduceCallbackFn<T,R> = reference to function(const PreviousValue: R; const CurrentValue: T; const CurrentIndex: Integer; const Elements: TArray<T>): R;
 
 implementation
 

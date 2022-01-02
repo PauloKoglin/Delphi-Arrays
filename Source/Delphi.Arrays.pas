@@ -49,7 +49,8 @@ type
     procedure ForEach(const Callback: TForEachCallbackFnElementIndex<T>); overload;
     procedure ForEach(const Callback: TForEachCallbackFnElement<T>); overload;
 
-    function Reduce(const Callback: TReduceCallbackFn<T,T>): T;
+    function Reduce(const Callback: TReduceCallbackFn<T,T>): T; overload;
+    function Reduce(const Callback: TReduceCallbackFn<T,T>; const InitialValue: T): T; overload;
 
     function Join(const Separator: String = ','): string;
     function Reverse(): IArray<T>;
@@ -338,9 +339,16 @@ end;
 
 function TArrays<T>.Reduce(const Callback: TReduceCallbackFn<T,T>): T;
 begin
-  Result := Callback(FItems[0], FItems[1], 1);
+  Result := Callback(FItems[0], FItems[1], 1, FItems);
   for var i := 2 to Length(FItems)-1 do
-    Result := Callback(Result, FItems[i], i);
+    Result := Callback(Result, FItems[i], i, FItems);
+end;
+
+function TArrays<T>.Reduce(const Callback: TReduceCallbackFn<T, T>; const InitialValue: T): T;
+begin
+  Result := Callback(InitialValue, FItems[0], 0, FItems);
+  for var i := 1 to Length(FItems)-1 do
+    Result := Callback(Result, FItems[i], i, FItems);
 end;
 
 function TArrays<T>.Reverse: IArray<T>;
