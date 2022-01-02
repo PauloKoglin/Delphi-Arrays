@@ -4,6 +4,7 @@ interface
 
 uses
   Delphi.Arrays.Interfaces.IArray
+  , Delphi.Arrays.Interfaces.CallbackFn
 ;
 
 type
