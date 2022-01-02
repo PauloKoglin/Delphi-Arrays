@@ -49,6 +49,7 @@ type
     procedure ForEach(const Callback: TForEachCallbackFnElementIndex<T>); overload;
     procedure ForEach(const Callback: TForEachCallbackFnElement<T>); overload;
 
+    function Join(const Separator: String = ','): string;
     function Reverse(): IArray<T>;
     function Pop(): IArray<T>;
     function Shift(): IArray<T>;
@@ -60,6 +61,9 @@ type
 
 implementation
 
+uses
+  RTTI
+;
 
 { TArrays<T> }
 
@@ -251,6 +255,13 @@ end;
 function TArrays<T>.GetValue(const Index: Integer): T;
 begin
   Result := FItems[Index];
+end;
+
+function TArrays<T>.Join(const Separator: String): string;
+begin
+  Result := TValue.From<T>(FItems[0]).ToString();
+  for var i := 1 to Length(FItems)-1 do
+    Result := Result + Separator + TValue.From<T>(FItems[i]).ToString();
 end;
 
 function TArrays<T>.Push(const Element: T): Integer;

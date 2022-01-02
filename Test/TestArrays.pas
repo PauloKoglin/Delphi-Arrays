@@ -165,6 +165,9 @@ type
     [Test]
     procedure TestForEach_Empty_Array;
 
+    [Test]
+    procedure TestJoin_Default_Separator;
+
   end;
 
 implementation
@@ -501,6 +504,12 @@ begin
   const Sut: IArray<string> = TArrays<string>.From([]);
 
   Assert.AreEqual(0, Sut.Count);
+end;
+
+procedure TTestArrays.TestJoin_Default_Separator;
+begin
+  const Actual = FSut.Join();
+  Assert.AreEqual('A,B,C', Actual);
 end;
 
 procedure TTestArrays.TestPush_One_Element;
