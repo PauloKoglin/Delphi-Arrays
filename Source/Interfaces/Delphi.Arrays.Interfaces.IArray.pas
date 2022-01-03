@@ -55,7 +55,9 @@ type
     function ReduceString(const Callback: TReduceCallbackFnWithCurrentIndex<T,string>; const InitialValue: string = ''): string; overload;
     function ReduceString(const Callback: TReduceCallbackFnWithPreviousAndCurrentValue<T,string>; const InitialValue: string = ''): string; overload;
 
-    function ReduceInteger(const Callback: TReduceCallbackFn<T,Integer>; const InitialValue: Integer = 0): Integer;
+    function ReduceInteger(const Callback: TReduceCallbackFn<T,Integer>; const InitialValue: Integer = 0): Integer; overload;
+    function ReduceInteger(const Callback: TReduceCallbackFnWithCurrentIndex<T,Integer>; const InitialValue: Integer = 0): Integer; overload;
+
     function ReduceDouble(const Callback: TReduceCallbackFn<T,Double>; const InitialValue: Double = 0.0): Double;
 
     function Join(const Separator: String = ','): string;
