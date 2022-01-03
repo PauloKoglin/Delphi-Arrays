@@ -196,6 +196,9 @@ type
     procedure TestReduceString_All_Args;
 
     [Test]
+    procedure TestReduceString_All_Args_InitialValue;
+
+    [Test]
     procedure TestReduceInteger_All_Args;
 
   end;
@@ -662,6 +665,18 @@ begin
 end;
 
 procedure TTestArrays.TestReduceString_All_Args;
+begin
+  const Sut: IArray<Integer> = TArrays<Integer>.From([10, 20, 30]);
+  const ReduceResult = Sut.ReduceString(
+    function(const PreviousValue: string; const CurrentValue: Integer; const CurrentIndex: Integer; const Elements: TArray<Integer>): string
+    begin
+      Result := PreviousValue + '-' + IntToStr(CurrentIndex * CurrentValue);
+    end
+  );
+  Assert.AreEqual('-0-20-60', ReduceResult);
+end;
+
+procedure TTestArrays.TestReduceString_All_Args_InitialValue;
 begin
   const Sut: IArray<Integer> = TArrays<Integer>.From([10, 20, 30]);
   const ReduceResult = Sut.ReduceString(
