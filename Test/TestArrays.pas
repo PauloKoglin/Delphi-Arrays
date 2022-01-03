@@ -226,6 +226,9 @@ type
     procedure TestReduceInteger_Two_Args;
 
     [Test]
+    procedure TestReduceInteger_Two_Args_InitialValue;
+
+    [Test]
     procedure TestReduceDouble_All_Args;
 
     [Test]
@@ -779,6 +782,22 @@ begin
     end
   );
   Assert.AreEqual(20, ReduceResult);
+end;
+
+procedure TTestArrays.TestReduceInteger_Two_Args_InitialValue;
+begin
+  const InitialValue = 50;
+  const ReduceResult = FSut.ReduceInteger(
+    function(const PreviousValue: Integer; const CurrentValue: String): Integer
+    begin
+      if CurrentValue <> 'A' then
+        Result := PreviousValue + 10
+      else
+        Result := PreviousValue;
+    end,
+    InitialValue
+  );
+  Assert.AreEqual(70, ReduceResult);
 end;
 
 procedure TTestArrays.TestReduceString_All_Args;
