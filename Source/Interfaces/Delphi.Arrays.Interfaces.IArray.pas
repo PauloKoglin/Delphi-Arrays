@@ -57,6 +57,7 @@ type
 
     function ReduceInteger(const Callback: TReduceCallbackFn<T,Integer>; const InitialValue: Integer = 0): Integer; overload;
     function ReduceInteger(const Callback: TReduceCallbackFnWithCurrentIndex<T,Integer>; const InitialValue: Integer = 0): Integer; overload;
+    function ReduceInteger(const Callback: TReduceCallbackFnWithPreviousAndCurrentValue<T,Integer>; const InitialValue: Integer = 0): Integer; overload;
 
     function ReduceDouble(const Callback: TReduceCallbackFn<T,Double>; const InitialValue: Double = 0.0): Double;
 

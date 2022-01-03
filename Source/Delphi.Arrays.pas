@@ -62,6 +62,7 @@ type
 
     function ReduceInteger(const Callback: TReduceCallbackFn<T,Integer>; const InitialValue: Integer = 0): Integer; overload;
     function ReduceInteger(const Callback: TReduceCallbackFnWithCurrentIndex<T,Integer>; const InitialValue: Integer = 0): Integer; overload;
+    function ReduceInteger(const Callback: TReduceCallbackFnWithPreviousAndCurrentValue<T,Integer>; const InitialValue: Integer = 0): Integer; overload;
 
     function ReduceDouble(const Callback: TReduceCallbackFn<T,Double>; const InitialValue: Double = 0): Double;
 
@@ -487,6 +488,17 @@ begin
   Result := Callback(InitialValue, FItems[0], 0, FItems);
   for var i := 1 to Length(FItems)-1 do
     Result := Callback(Result, FItems[i], i, FItems);
+end;
+
+function TArrays<T>.ReduceInteger(const Callback: TReduceCallbackFnWithPreviousAndCurrentValue<T, Integer>; const InitialValue: Integer): Integer;
+begin
+  Result := Self.ReduceInteger(
+    function(const PreviousValue: Integer; const CurrentValue: T; const CurrentIndex: Integer; const Elements: TArray<T>): Integer
+    begin
+      Result := Callback(PreviousValue, CurrentValue);
+    end,
+    InitialValue
+  );
 end;
 
 function TArrays<T>.ReduceInteger(const Callback: TReduceCallbackFnWithCurrentIndex<T, Integer>; const InitialValue: Integer): Integer;
