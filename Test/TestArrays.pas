@@ -201,6 +201,9 @@ type
     [Test]
     procedure TestReduceInteger_All_Args;
 
+    [Test]
+    procedure TestReduceInteger_All_Args_InitialValue;
+
   end;
 
 implementation
@@ -649,6 +652,20 @@ begin
 end;
 
 procedure TTestArrays.TestReduceInteger_All_Args;
+begin
+  const ReduceResult = FSut.ReduceInteger(
+    function(const PreviousValue: Integer; const CurrentValue: String; const CurrentIndex: Integer; const Elements: TArray<String>): Integer
+    begin
+      if CurrentValue <> 'A' then
+        Result := PreviousValue + CurrentIndex
+      else
+        Result := PreviousValue;
+    end
+  );
+  Assert.AreEqual(3, ReduceResult);
+end;
+
+procedure TTestArrays.TestReduceInteger_All_Args_InitialValue;
 begin
   const InitialValue = 10;
   const ReduceResult = FSut.ReduceInteger(
