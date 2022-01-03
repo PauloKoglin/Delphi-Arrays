@@ -56,7 +56,9 @@ type
     function Reduce(const Callback: TReduceCallbackFnWithPreviousAndCurrentValue<T,T>): T; overload;
     function Reduce(const Callback: TReduceCallbackFnWithPreviousAndCurrentValue<T,T>; const InitialValue: T): T; overload;
 
-    function ReduceString(const Callback: TReduceCallbackFn<T,string>; const InitialValue: string = ''): string;
+    function ReduceString(const Callback: TReduceCallbackFn<T,string>; const InitialValue: string = ''): string; overload;
+    function ReduceString(const Callback: TReduceCallbackFnWithCurrentIndex<T,string>; const InitialValue: string = ''): string; overload;
+
     function ReduceInteger(const Callback: TReduceCallbackFn<T,Integer>; const InitialValue: Integer = 0): Integer;
     function ReduceDouble(const Callback: TReduceCallbackFn<T,Double>; const InitialValue: Double = 0): Double;
 
@@ -489,6 +491,17 @@ begin
   Result := Callback(InitialValue, FItems[0], 0, FItems);
   for var i := 1 to Length(FItems)-1 do
     Result := Callback(Result, FItems[i], i, FItems);
+end;
+
+function TArrays<T>.ReduceString(const Callback: TReduceCallbackFnWithCurrentIndex<T, string>; const InitialValue: string): string;
+begin
+  Result := Self.ReduceString(
+    function(const PreviousValue: string; const CurrentValue: T; const CurrentIndex: Integer; const Elements: TArray<T>): string
+    begin
+      Result := Callback(PreviousValue, CurrentValue, CurrentIndex);
+    end,
+    InitialValue
+  );
 end;
 
 function TArrays<T>.ReduceString(const Callback: TReduceCallbackFn<T, string>; const InitialValue: string): string;
