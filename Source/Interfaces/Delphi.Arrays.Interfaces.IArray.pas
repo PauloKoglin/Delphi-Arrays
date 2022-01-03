@@ -53,6 +53,7 @@ type
     // Reducers with result type different from the elements. They start always with the InitialValue.
     function ReduceString(const Callback: TReduceCallbackFn<T,string>; const InitialValue: string = ''): string;
     function ReduceInteger(const Callback: TReduceCallbackFn<T,Integer>; const InitialValue: Integer = 0): Integer;
+    function ReduceDouble(const Callback: TReduceCallbackFn<T,Double>; const InitialValue: Double = 0.0): Double;
 
     function Join(const Separator: String = ','): string;
     function Reverse(): IArray<T>;

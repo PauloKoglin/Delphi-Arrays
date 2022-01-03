@@ -58,6 +58,7 @@ type
 
     function ReduceString(const Callback: TReduceCallbackFn<T,string>; const InitialValue: string = ''): string;
     function ReduceInteger(const Callback: TReduceCallbackFn<T,Integer>; const InitialValue: Integer = 0): Integer;
+    function ReduceDouble(const Callback: TReduceCallbackFn<T,Double>; const InitialValue: Double = 0): Double;
 
     function Join(const Separator: String = ','): string;
     function Reverse(): IArray<T>;
@@ -474,6 +475,13 @@ begin
     end,
     InitialValue
   );
+end;
+
+function TArrays<T>.ReduceDouble(const Callback: TReduceCallbackFn<T, Double>; const InitialValue: Double): Double;
+begin
+  Result := Callback(InitialValue, FItems[0], 0, FItems);
+  for var i := 1 to Length(FItems)-1 do
+    Result := Callback(Result, FItems[i], i, FItems);
 end;
 
 function TArrays<T>.ReduceInteger(const Callback: TReduceCallbackFn<T, Integer>; const InitialValue: Integer): Integer;
