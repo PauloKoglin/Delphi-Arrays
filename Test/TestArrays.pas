@@ -202,6 +202,9 @@ type
     procedure TestReduceString_Three_Args;
 
     [Test]
+    procedure TestReduceString_Three_Args_InitialValue;
+
+    [Test]
     procedure TestReduceInteger_All_Args;
 
     [Test]
@@ -755,6 +758,19 @@ begin
     end
   );
   Assert.AreEqual('-0-2,5-7', ReduceResult);
+end;
+
+procedure TTestArrays.TestReduceString_Three_Args_InitialValue;
+begin
+  const Sut: IArray<Double> = TArrays<Double>.From([1.5, 2.5, 3.5]);
+  const ReduceResult = Sut.ReduceString(
+    function(const PreviousValue: string; const CurrentValue: Double; const CurrentIndex: Integer): string
+    begin
+      Result := PreviousValue + '-' + FloatToStr(CurrentIndex * CurrentValue);
+    end,
+    'INITIAL_VALUE'
+  );
+  Assert.AreEqual('INITIAL_VALUE-0-2,5-7', ReduceResult);
 end;
 
 procedure TTestArrays.TestReduce_All_Args;
