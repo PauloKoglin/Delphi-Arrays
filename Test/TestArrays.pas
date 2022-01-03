@@ -207,6 +207,9 @@ type
     [Test]
     procedure TestReduceDouble_All_Args;
 
+    [Test]
+    procedure TestReduceDouble_All_Args_InitialValue;
+
   end;
 
 implementation
@@ -666,6 +669,22 @@ begin
     end
   );
   Assert.AreEqual(3.30, ReduceResult);
+end;
+
+procedure TTestArrays.TestReduceDouble_All_Args_InitialValue;
+begin
+  const InitialValue = 10.15;
+  const ReduceResult = FSut.ReduceDouble(
+    function(const PreviousValue: Double; const CurrentValue: String; const CurrentIndex: Integer; const Elements: TArray<String>): Double
+    begin
+      if CurrentValue <> 'A' then
+        Result := PreviousValue + CurrentIndex + 0.15
+      else
+        Result := PreviousValue;
+    end,
+    InitialValue
+  );
+  Assert.AreEqual(13.45, ReduceResult);
 end;
 
 procedure TTestArrays.TestReduceInteger_All_Args;
