@@ -195,6 +195,9 @@ type
     [Test]
     procedure TestReduceString_All_Args;
 
+    [Test]
+    procedure TestReduceInteger_All_Args;
+
   end;
 
 implementation
@@ -640,6 +643,22 @@ begin
   const NewArray = Sut.Pop();
 
   Assert.AreEqual(0, NewArray.Count);
+end;
+
+procedure TTestArrays.TestReduceInteger_All_Args;
+begin
+  const InitialValue = 10;
+  const ReduceResult = FSut.ReduceInteger(
+    function(const PreviousValue: Integer; const CurrentValue: String; const CurrentIndex: Integer; const Elements: TArray<String>): Integer
+    begin
+      if CurrentValue <> 'A' then
+        Result := PreviousValue + CurrentIndex
+      else
+        Result := PreviousValue;
+    end,
+    InitialValue
+  );
+  Assert.AreEqual(13, ReduceResult);
 end;
 
 procedure TTestArrays.TestReduceString_All_Args;
