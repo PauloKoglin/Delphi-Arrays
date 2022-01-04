@@ -61,6 +61,7 @@ type
 
     function ReduceDouble(const Callback: TReduceCallbackFn<T,Double>; const InitialValue: Double = 0.0): Double; overload;
     function ReduceDouble(const Callback: TReduceCallbackFnWithCurrentIndex<T,Double>; const InitialValue: Double = 0.0): Double; overload;
+    function ReduceDouble(const Callback: TReduceCallbackFnWithPreviousAndCurrentValue<T,Double>; const InitialValue: Double = 0.0): Double; overload;
 
     function Join(const Separator: String = ','): string;
     function Reverse(): IArray<T>;

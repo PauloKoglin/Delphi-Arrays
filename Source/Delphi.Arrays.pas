@@ -66,6 +66,7 @@ type
 
     function ReduceDouble(const Callback: TReduceCallbackFn<T,Double>; const InitialValue: Double = 0.0): Double; overload;
     function ReduceDouble(const Callback: TReduceCallbackFnWithCurrentIndex<T,Double>; const InitialValue: Double = 0.0): Double; overload;
+    function ReduceDouble(const Callback: TReduceCallbackFnWithPreviousAndCurrentValue<T,Double>; const InitialValue: Double = 0.0): Double; overload;
 
     function Join(const Separator: String = ','): string;
     function Reverse(): IArray<T>;
@@ -477,6 +478,17 @@ function TArrays<T>.Reduce(const Callback: TReduceCallbackFnWithPreviousAndCurre
 begin
   Result := Self.Reduce(
     function(const PreviousValue: T; const CurrentValue: T; const CurrentIndex: Integer; const Elements: TArray<T>): T
+    begin
+      Result := Callback(PreviousValue, CurrentValue);
+    end,
+    InitialValue
+  );
+end;
+
+function TArrays<T>.ReduceDouble(const Callback: TReduceCallbackFnWithPreviousAndCurrentValue<T, Double>; const InitialValue: Double): Double;
+begin
+    Result := Self.ReduceDouble(
+    function(const PreviousValue: Double; const CurrentValue: T; const CurrentIndex: Integer; const Elements: TArray<T>): Double
     begin
       Result := Callback(PreviousValue, CurrentValue);
     end,

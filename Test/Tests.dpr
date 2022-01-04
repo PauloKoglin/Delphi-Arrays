@@ -15,7 +15,8 @@ uses
   DUnitX.TestFramework,
   TestArrays in 'TestArrays.pas',
   Delphi.Arrays in '..\Source\Delphi.Arrays.pas',
-  Delphi.Arrays.Interfaces.IArray in '..\Source\Interfaces\Delphi.Arrays.Interfaces.IArray.pas';
+  Delphi.Arrays.Interfaces.IArray in '..\Source\Interfaces\Delphi.Arrays.Interfaces.IArray.pas',
+  Delphi.Arrays.Interfaces.CallbackFn in '..\Source\Interfaces\Delphi.Arrays.Interfaces.CallbackFn.pas';
 
 {$IFNDEF TESTINSIGHT}
 var
