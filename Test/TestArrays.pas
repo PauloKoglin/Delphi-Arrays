@@ -602,6 +602,7 @@ end;
 procedure TTestArrays.TestPush_One_Element;
 begin
   const NewLength = FSut.Push('new_Element');
+
   Assert.AreEqual(4, NewLength);
   Assert.AreEqual('A', FSut.Values[0]);
   Assert.AreEqual('B', FSut.Values[1]);
@@ -612,6 +613,7 @@ end;
 procedure TTestArrays.TestPush_Multiple_Elements;
 begin
   const NewLength = FSut.Push(['new_element', '', 'another_one']);
+
   Assert.AreEqual(6, NewLength);
   Assert.AreEqual('A', FSut.Values[0]);
   Assert.AreEqual('B', FSut.Values[1]);
@@ -695,7 +697,9 @@ end;
 
 procedure TTestArrays.TestReduceDouble_All_Args;
 begin
-  const ReduceResult = FSut.ReduceDouble(
+  const Expected: Double = 3.30;
+
+  const ReduceResult: Double = FSut.ReduceDouble(
     function(const PreviousValue: Double; const CurrentValue: String; const CurrentIndex: Integer; const Elements: TArray<String>): Double
     begin
       if CurrentValue <> 'A' then
@@ -704,13 +708,16 @@ begin
         Result := PreviousValue;
     end
   );
-  Assert.AreEqual(3.30, ReduceResult);
+
+  Assert.AreEqual(Expected, ReduceResult);
 end;
 
 procedure TTestArrays.TestReduceDouble_All_Args_InitialValue;
 begin
-  const InitialValue = 10.15;
-  const ReduceResult = FSut.ReduceDouble(
+  const InitialValue: Double = 10.15;
+  const Expected: Double = 13.45;
+
+  const ReduceResult: Double = FSut.ReduceDouble(
     function(const PreviousValue: Double; const CurrentValue: String; const CurrentIndex: Integer; const Elements: TArray<String>): Double
     begin
       if CurrentValue <> 'A' then
@@ -720,12 +727,15 @@ begin
     end,
     InitialValue
   );
-  Assert.AreEqual(13.45, ReduceResult);
+
+  Assert.AreEqual(Expected, ReduceResult);
 end;
 
 procedure TTestArrays.TestReduceDouble_Three_Args;
 begin
-  const ReduceResult = FSut.ReduceDouble(
+  const Expected: Double = 3.30;
+
+  const ReduceResult: Double = FSut.ReduceDouble(
     function(const PreviousValue: Double; const CurrentValue: String; const CurrentIndex: Integer): Double
     begin
       if CurrentValue <> 'A' then
@@ -734,13 +744,15 @@ begin
         Result := PreviousValue;
     end
   );
-  Assert.AreEqual(3.30, ReduceResult);
+
+  Assert.AreEqual(Expected, ReduceResult);
 end;
 
 procedure TTestArrays.TestReduceDouble_Three_Args_InitialValue;
 begin
   const Expected: Double = 103.30;
-  const InitialValue = 100;
+  const InitialValue: Double = 100;
+
   const ReduceResult: Double = FSut.ReduceDouble(
     function(const PreviousValue: Double; const CurrentValue: String; const CurrentIndex: Integer): Double
     begin
@@ -751,12 +763,15 @@ begin
     end,
     InitialValue
   );
+
   Assert.AreEqual(Expected, ReduceResult);
 end;
 
 procedure TTestArrays.TestReduceDouble_Two_Args;
 begin
-  const ReduceResult = FSut.ReduceDouble(
+  const Expected: Double = 2.30;
+
+  const ReduceResult: Double = FSut.ReduceDouble(
     function(const PreviousValue: Double; const CurrentValue: String): Double
     begin
       if CurrentValue <> 'A' then
@@ -765,7 +780,8 @@ begin
         Result := PreviousValue;
     end
   );
-  Assert.AreEqual(2.30, ReduceResult);
+
+  Assert.AreEqual(Expected, ReduceResult);
 end;
 
 procedure TTestArrays.TestReduceDouble_Two_Args_InitialValue;
@@ -789,7 +805,9 @@ end;
 
 procedure TTestArrays.TestReduceInteger_All_Args;
 begin
-  const ReduceResult = FSut.ReduceInteger(
+  const Expected: Integer = 3;
+
+  const ReduceResult: Integer = FSut.ReduceInteger(
     function(const PreviousValue: Integer; const CurrentValue: String; const CurrentIndex: Integer; const Elements: TArray<String>): Integer
     begin
       if CurrentValue <> 'A' then
@@ -798,13 +816,16 @@ begin
         Result := PreviousValue;
     end
   );
-  Assert.AreEqual(3, ReduceResult);
+
+  Assert.AreEqual(Expected, ReduceResult);
 end;
 
 procedure TTestArrays.TestReduceInteger_All_Args_InitialValue;
 begin
-  const InitialValue = 10;
-  const ReduceResult = FSut.ReduceInteger(
+  const Expected: Integer = 13;
+  const InitialValue: Integer = 10;
+
+  const ReduceResult: Integer = FSut.ReduceInteger(
     function(const PreviousValue: Integer; const CurrentValue: String; const CurrentIndex: Integer; const Elements: TArray<String>): Integer
     begin
       if CurrentValue <> 'A' then
@@ -814,12 +835,15 @@ begin
     end,
     InitialValue
   );
-  Assert.AreEqual(13, ReduceResult);
+
+  Assert.AreEqual(Expected, ReduceResult);
 end;
 
 procedure TTestArrays.TestReduceInteger_Three_Args;
 begin
-  const ReduceResult = FSut.ReduceInteger(
+  const Expected: Integer = 3;
+
+  const ReduceResult: Integer = FSut.ReduceInteger(
     function(const PreviousValue: Integer; const CurrentValue: String; const CurrentIndex: Integer): Integer
     begin
       if CurrentValue <> 'A' then
@@ -828,12 +852,16 @@ begin
         Result := PreviousValue;
     end
   );
-  Assert.AreEqual(3, ReduceResult);
+
+  Assert.AreEqual(Expected, ReduceResult);
 end;
 
 procedure TTestArrays.TestReduceInteger_Three_Args_InitialValue;
 begin
-  const ReduceResult = FSut.ReduceInteger(
+  const InitialValue: Integer = 10;
+  const Expected: Integer = 13;
+
+  const ReduceResult: Integer = FSut.ReduceInteger(
     function(const PreviousValue: Integer; const CurrentValue: String; const CurrentIndex: Integer): Integer
     begin
       if CurrentValue <> 'A' then
@@ -841,14 +869,17 @@ begin
       else
         Result := PreviousValue;
     end,
-    10
+    InitialValue
   );
-  Assert.AreEqual(13, ReduceResult);
+
+  Assert.AreEqual(Expected, ReduceResult);
 end;
 
 procedure TTestArrays.TestReduceInteger_Two_Args;
 begin
-  const ReduceResult = FSut.ReduceInteger(
+  const Expected: Integer = 20;
+
+  const ReduceResult: Integer = FSut.ReduceInteger(
     function(const PreviousValue: Integer; const CurrentValue: String): Integer
     begin
       if CurrentValue <> 'A' then
@@ -857,13 +888,16 @@ begin
         Result := PreviousValue;
     end
   );
-  Assert.AreEqual(20, ReduceResult);
+
+  Assert.AreEqual(Expected, ReduceResult);
 end;
 
 procedure TTestArrays.TestReduceInteger_Two_Args_InitialValue;
 begin
-  const InitialValue = 50;
-  const ReduceResult = FSut.ReduceInteger(
+  const Expected: Integer = 70;
+  const InitialValue: Integer = 50;
+
+  const ReduceResult: Integer = FSut.ReduceInteger(
     function(const PreviousValue: Integer; const CurrentValue: String): Integer
     begin
       if CurrentValue <> 'A' then
@@ -873,151 +907,194 @@ begin
     end,
     InitialValue
   );
-  Assert.AreEqual(70, ReduceResult);
+
+  Assert.AreEqual(Expected, ReduceResult);
 end;
 
 procedure TTestArrays.TestReduceString_All_Args;
 begin
+  const Expected: string = '-0-20-60';
   const Sut: IArray<Integer> = TArrays<Integer>.From([10, 20, 30]);
-  const ReduceResult = Sut.ReduceString(
+
+  const ReduceResult: string = Sut.ReduceString(
     function(const PreviousValue: string; const CurrentValue: Integer; const CurrentIndex: Integer; const Elements: TArray<Integer>): string
     begin
       Result := PreviousValue + '-' + IntToStr(CurrentIndex * CurrentValue);
     end
   );
-  Assert.AreEqual('-0-20-60', ReduceResult);
+
+  Assert.AreEqual(Expected, ReduceResult);
 end;
 
 procedure TTestArrays.TestReduceString_All_Args_InitialValue;
 begin
+  const InitialValue: string = 'INITIAL_VALUE';
+  const Expected: string = 'INITIAL_VALUE-0-20-60';
   const Sut: IArray<Integer> = TArrays<Integer>.From([10, 20, 30]);
-  const ReduceResult = Sut.ReduceString(
+
+  const ReduceResult: string = Sut.ReduceString(
     function(const PreviousValue: string; const CurrentValue: Integer; const CurrentIndex: Integer; const Elements: TArray<Integer>): string
     begin
       Result := PreviousValue + '-' + IntToStr(CurrentIndex * CurrentValue);
     end,
-    'INITIAL_VALUE'
+    InitialValue
   );
-  Assert.AreEqual('INITIAL_VALUE-0-20-60', ReduceResult);
+
+  Assert.AreEqual(Expected, ReduceResult);
 end;
 
 procedure TTestArrays.TestReduceString_Three_Args;
 begin
+  const Expected: string = '-0-2,5-7';
   const Sut: IArray<Double> = TArrays<Double>.From([1.5, 2.5, 3.5]);
-  const ReduceResult = Sut.ReduceString(
+
+  const ReduceResult: string = Sut.ReduceString(
     function(const PreviousValue: string; const CurrentValue: Double; const CurrentIndex: Integer): string
     begin
       Result := PreviousValue + '-' + FloatToStr(CurrentIndex * CurrentValue);
     end
   );
-  Assert.AreEqual('-0-2,5-7', ReduceResult);
+
+  Assert.AreEqual(Expected, ReduceResult);
 end;
 
 procedure TTestArrays.TestReduceString_Three_Args_InitialValue;
 begin
+  const InitialValue: string = 'INITIAL_VALUE';
+  const Expected: string = 'INITIAL_VALUE-0-2,5-7';
   const Sut: IArray<Double> = TArrays<Double>.From([1.5, 2.5, 3.5]);
-  const ReduceResult = Sut.ReduceString(
+
+  const ReduceResult: string = Sut.ReduceString(
     function(const PreviousValue: string; const CurrentValue: Double; const CurrentIndex: Integer): string
     begin
       Result := PreviousValue + '-' + FloatToStr(CurrentIndex * CurrentValue);
     end,
-    'INITIAL_VALUE'
+    InitialValue
   );
-  Assert.AreEqual('INITIAL_VALUE-0-2,5-7', ReduceResult);
+
+  Assert.AreEqual(Expected, ReduceResult);
 end;
 
 procedure TTestArrays.TestReduceString_Two_Args;
 begin
+  const Expected: string = '#1,5#2,5#3,5';
   const Sut: IArray<Double> = TArrays<Double>.From([1.5, 2.5, 3.5]);
-  const ReduceResult = Sut.ReduceString(
+
+  const ReduceResult: string = Sut.ReduceString(
     function(const PreviousValue: string; const CurrentValue: Double): string
     begin
       Result := PreviousValue + '#' + FloatToStr(CurrentValue);
     end
   );
-  Assert.AreEqual('#1,5#2,5#3,5', ReduceResult);
+
+  Assert.AreEqual(Expected, ReduceResult);
 end;
 
 procedure TTestArrays.TestReduceString_Two_Args_InitialValue;
 begin
+  const InitialValue: string = 'INITIAL_VALUE';
+  const Expected: string = 'INITIAL_VALUE#1,5#2,5#3,5';
   const Sut: IArray<Double> = TArrays<Double>.From([1.5, 2.5, 3.5]);
-  const ReduceResult = Sut.ReduceString(
+
+  const ReduceResult: string = Sut.ReduceString(
     function(const PreviousValue: string; const CurrentValue: Double): string
     begin
       Result := PreviousValue + '#' + FloatToStr(CurrentValue);
     end,
-    'INITIAL_VALUE'
+    InitialValue
   );
-  Assert.AreEqual('INITIAL_VALUE#1,5#2,5#3,5', ReduceResult);
+
+  Assert.AreEqual(Expected, ReduceResult);
 end;
 
 procedure TTestArrays.TestReduce_All_Args;
 begin
-  const ReduceResult = FSut.Reduce(
+  const Expected: string = 'A1B2C';
+
+  const ReduceResult: string = FSut.Reduce(
     function(const PreviousValue: string; const CurrentValue: string; const CurrentIndex: Integer; const Elements: TArray<string>): string
     begin
       Result := PreviousValue + IntToStr(CurrentIndex) + CurrentValue;
     end
   );
-  Assert.AreEqual('A1B2C', ReduceResult);
+
+  Assert.AreEqual(Expected, ReduceResult);
 end;
 
 procedure TTestArrays.TestReduce_All_Args_InitialValue;
 begin
-  const ReduceResult = FSut.Reduce(
+  const InitialValue: string = 'INITIAL_VALUE-';
+  const Expected: string = 'INITIAL_VALUE-0A1B2C';
+
+  const ReduceResult: string = FSut.Reduce(
     function(const PreviousValue: string; const CurrentValue: string; const CurrentIndex: Integer; const Elements: TArray<string>): string
     begin
       Result := PreviousValue + IntToStr(CurrentIndex) + CurrentValue;
     end,
-    'INITIAL_VALUE-'
+    InitialValue
   );
+
   Assert.AreEqual('INITIAL_VALUE-0A1B2C', ReduceResult);
 end;
 
 procedure TTestArrays.TestReduce_Three_Args_InitialValue;
 begin
-  const ReduceResult = FSut.Reduce(
+  const InitialValue: string = 'INITIAL_VALUE-';
+  const Expected: string = 'INITIAL_VALUE-0A1B2C';
+
+  const ReduceResult: string = FSut.Reduce(
     function(const PreviousValue: string; const CurrentValue: string; const CurrentIndex: Integer): string
     begin
       Result := PreviousValue + IntToStr(CurrentIndex) + CurrentValue;
     end,
-    'INITIAL_VALUE-'
+    InitialValue
   );
-  Assert.AreEqual('INITIAL_VALUE-0A1B2C', ReduceResult);
+
+  Assert.AreEqual(Expected, ReduceResult);
 end;
 
 procedure TTestArrays.TestReduce_Two_Args;
 begin
-  const ReduceResult = FSut.Reduce(
+  const Expected: string = 'A B C';
+
+  const ReduceResult: string = FSut.Reduce(
     function(const PreviousValue: string; const CurrentValue: string): string
     begin
       Result := PreviousValue + ' ' + CurrentValue;
     end
   );
-  Assert.AreEqual('A B C', ReduceResult);
+
+  Assert.AreEqual(Expected, ReduceResult);
 end;
 
 procedure TTestArrays.TestReduce_Two_Args_InitialValue;
 begin
-  const ReduceResult = FSut.Reduce(
+  const InitialValue: string = 'INITIAL_VALUE-';
+  const Expected: string = 'INITIAL_VALUE- A B C';
+
+  const ReduceResult: string = FSut.Reduce(
     function(const PreviousValue: string; const CurrentValue: string): string
     begin
       Result := PreviousValue + ' ' + CurrentValue;
     end,
-    'INITIAL_VALUE-'
+    InitialValue
   );
-  Assert.AreEqual('INITIAL_VALUE- A B C', ReduceResult);
+
+  Assert.AreEqual(Expected, ReduceResult);
 end;
 
 procedure TTestArrays.TestReduce_Three_Args;
 begin
-  const ReduceResult = FSut.Reduce(
+  const Expected: string = 'A1B2C';
+
+  const ReduceResult: string = FSut.Reduce(
     function(const PreviousValue: string; const CurrentValue: string; const CurrentIndex: Integer): string
     begin
       Result := PreviousValue + IntToStr(CurrentIndex) + CurrentValue;
     end
   );
-  Assert.AreEqual('A1B2C', ReduceResult);
+
+  Assert.AreEqual(Expected, ReduceResult);
 end;
 
 procedure TTestArrays.TestReverse;
@@ -1042,6 +1119,7 @@ end;
 procedure TTestArrays.TestShift_Empty_Array;
 begin
   const Sut: IArray<string> = TArrays<string>.From([]);
+
   const NewArray = Sut.Shift();
 
   Assert.AreEqual(0, NewArray.Count);
@@ -1050,6 +1128,7 @@ end;
 procedure TTestArrays.TestShift_One_Element_Array;
 begin
   const Sut: IArray<string> = TArrays<string>.From(['A']);
+
   const NewArray = Sut.Shift();
 
   Assert.AreEqual(0, NewArray.Count);
@@ -1158,6 +1237,7 @@ end;
 procedure TTestArrays.TestUnshift;
 begin
   const NewLength = FSut.Unshift('new_Element');
+
   Assert.AreEqual(4, NewLength);
   Assert.AreEqual('new_Element', FSut.Values[0]);
   Assert.AreEqual('A', FSut.Values[1]);
@@ -1168,6 +1248,7 @@ end;
 procedure TTestArrays.TestUnshift_Empty_Array;
 begin
   const NewLength = FSut.Unshift([]);
+
   Assert.AreEqual(3, NewLength);
   Assert.AreEqual('A', FSut.Values[0]);
   Assert.AreEqual('B', FSut.Values[1]);
@@ -1177,6 +1258,7 @@ end;
 procedure TTestArrays.TestUnshift_Multiple_Elements;
 begin
   const NewLength = FSut.Unshift(['new_element', '', 'another_element']);
+
   Assert.AreEqual(6, NewLength);
   Assert.AreEqual('new_element', FSut.Values[0]);
   Assert.AreEqual('', FSut.Values[1]);
