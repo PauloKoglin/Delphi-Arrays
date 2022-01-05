@@ -246,12 +246,16 @@ type
     [Test]
     procedure TestReduceDouble_Two_Args_InitialValue;
 
+    [Test]
+    procedure TestChainedFunctionCalls;
+
   end;
 
 implementation
 
 uses
-  System.StrUtils
+  System.StrUtils,
+  Delphi.Arrays.Interfaces.CallbackFn
 ;
 
 procedure TTestArrays.Setup;
@@ -261,6 +265,34 @@ end;
 
 procedure TTestArrays.TearDown;
 begin
+end;
+
+procedure TTestArrays.TestChainedFunctionCalls;
+begin
+  const Sut: IArray<Integer> = TArrays<Integer>.From([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+  const MultipleByTenWhenLessThanFive: TMapCallbackFnElement<Integer> =
+    function(const Element: Integer): Integer
+    begin
+      Result := Element;
+
+      if Element < 5 then
+        Result := Element * 10;
+    end;
+
+  const GreaterThanThirty: TCallbackFnElement<Integer> =
+    function(const Element: Integer): Boolean
+    begin
+      Result := Element > 30;
+    end;
+
+  const NewArray: IArray<Integer> = Sut
+    .Map(MultipleByTenWhenLessThanFive)
+    .Filter(GreaterThanThirty)
+    .Concat([80]);
+
+  Assert.AreEqual(2, NewArray.Count);
+  Assert.AreEqual(40, NewArray.Values[0]);
+  Assert.AreEqual(80, NewArray.Values[1]);
 end;
 
 procedure TTestArrays.TestConcat_Multiple_Values;
