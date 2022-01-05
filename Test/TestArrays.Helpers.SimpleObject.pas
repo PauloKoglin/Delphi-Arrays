@@ -19,11 +19,18 @@ type
       const IntegerProp: Integer
     );
 
+    function Equals(Obj: TObject): Boolean; override;
+    function ToString(): String; override;
+
     property StringProp: string read GetStringProp write SetStringProp;
     property IntegerProp: Integer read GetIntegerProp write SetIntegerProp;
   end;
 
 implementation
+
+uses
+  System.SysUtils
+;
 
 { TSimpleObject }
 
@@ -35,6 +42,14 @@ begin
 
   FStringProp := StringProp;
   FIntegerProp := IntegerProp;
+end;
+
+function TSimpleObject.Equals(Obj: TObject): Boolean;
+begin
+  Result :=
+    (Obj is TSimpleObject) and
+    (TSimpleObject(Obj).StringProp = FStringProp) and
+    (TSimpleObject(Obj).IntegerProp = FIntegerProp);
 end;
 
 function TSimpleObject.GetIntegerProp: Integer;
@@ -55,6 +70,11 @@ end;
 procedure TSimpleObject.SetStringProp(const Value: string);
 begin
   FStringProp := Value;
+end;
+
+function TSimpleObject.ToString: String;
+begin
+  Result := Format('StringProp: %s | IntegerProp: %d', [FStringProp, FIntegerProp]);
 end;
 
 end.

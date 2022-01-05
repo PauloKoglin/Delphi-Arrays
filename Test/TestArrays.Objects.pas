@@ -26,6 +26,9 @@ type
     [Test]
     procedure TestFrom;
 
+    [Test]
+    procedure TestMap_One_Arg;
+
   end;
 
 implementation
@@ -58,6 +61,24 @@ begin
   Assert.AreEqual(FTestObject1, FSut.Values[0]);
   Assert.AreEqual(FTestObject2, FSut.Values[1]);
   Assert.AreEqual(FTestObject3, FSut.Values[2]);
+end;
+
+procedure TTestArraysObjects.TestMap_One_Arg;
+begin
+  const NewArray: IArray<TSimpleObject> = FSut.Map(
+    function(const Element: TSimpleObject): TSimpleObject
+    begin
+      Result := Element;
+
+      if (Element.IntegerProp = 10) then
+        Element.StringProp := 'CHANGED';
+    end
+  );
+
+  Assert.AreEqual(3, NewArray.Count);
+  Assert.AreSame(FTestObject1, NewArray.Values[0]);
+  Assert.AreSame(FTestObject2, NewArray.Values[1]);
+  Assert.AreSame(FTestObject3, NewArray.Values[2]);
 end;
 
 initialization
