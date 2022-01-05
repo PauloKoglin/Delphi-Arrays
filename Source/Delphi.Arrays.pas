@@ -74,6 +74,7 @@ type
     function Shift(): IArray<T>;
     function Count(): Integer;
     function ToArray(): TArray<T>;
+    function ToString(): String; override;
 
     property Values[const Index: Integer]: T read GetValue;
   end;
@@ -81,7 +82,8 @@ type
 implementation
 
 uses
-  RTTI
+  System.SysUtils,
+  System.Rtti
 ;
 
 { TArrays<T> }
@@ -235,6 +237,17 @@ end;
 function TArrays<T>.ToArray: TArray<T>;
 begin
   Result := FItems;
+end;
+
+function TArrays<T>.ToString: String;
+begin
+  if Length(FItems) > 0 then
+    Result := TValue.From<T>(FItems[0]).ToString();
+
+  for var i := 1 to Length(FItems)-1 do
+    Result := Format('%s, %s', [Result, TValue.From<T>(FItems[i]).ToString()]);
+
+  Result := Format('[%s]', [Result]);
 end;
 
 function TArrays<T>.Unshift(const Elements: TArray<T>): Integer;
