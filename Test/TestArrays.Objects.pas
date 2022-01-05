@@ -29,6 +29,9 @@ type
     [Test]
     procedure TestMap_One_Arg;
 
+    [Test]
+    procedure TestReverse;
+
   end;
 
 implementation
@@ -79,6 +82,16 @@ begin
   Assert.AreSame(FTestObject1, NewArray.Values[0]);
   Assert.AreSame(FTestObject2, NewArray.Values[1]);
   Assert.AreSame(FTestObject3, NewArray.Values[2]);
+end;
+
+procedure TTestArraysObjects.TestReverse;
+begin
+  const NewArray: IArray<TSimpleObject> = FSut.Reverse();
+
+  Assert.AreEqual(3, NewArray.Count);
+  Assert.AreSame(FTestObject3, NewArray.Values[0]);
+  Assert.AreSame(FTestObject2, NewArray.Values[1]);
+  Assert.AreSame(FTestObject1, NewArray.Values[2]);
 end;
 
 initialization
