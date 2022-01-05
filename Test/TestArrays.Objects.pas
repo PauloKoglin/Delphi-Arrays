@@ -32,6 +32,9 @@ type
     [Test]
     procedure TestReverse;
 
+    [Test]
+    procedure TestPop;
+
   end;
 
 implementation
@@ -82,6 +85,15 @@ begin
   Assert.AreSame(FTestObject1, NewArray.Values[0]);
   Assert.AreSame(FTestObject2, NewArray.Values[1]);
   Assert.AreSame(FTestObject3, NewArray.Values[2]);
+end;
+
+procedure TTestArraysObjects.TestPop;
+begin
+  const NewArray: IArray<TSimpleObject> = FSut.Pop();
+
+  Assert.AreEqual(2, NewArray.Count);
+  Assert.AreSame(FTestObject1, NewArray.Values[0]);
+  Assert.AreSame(FTestObject2, NewArray.Values[1]);
 end;
 
 procedure TTestArraysObjects.TestReverse;
