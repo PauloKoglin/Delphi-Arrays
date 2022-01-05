@@ -292,7 +292,7 @@ end;
 procedure TTestArrays.TestEvery_Falsy;
 begin
   const Falsy = FSut.Every(
-    function (Element: string): Boolean
+    function (const Element: string): Boolean
     begin
       Result := Length(Element) = 2;
     end
@@ -304,7 +304,7 @@ end;
 procedure TTestArrays.TestEvery_Falsy_Tree_Args;
 begin
   const Falsy = FSut.Every(
-    function (Element: string; Index: Integer; const Elements: TArray<string>): Boolean
+    function (const Element: string; const Index: Integer; const Elements: TArray<string>): Boolean
     begin
       Result := Elements[Index] <> FSut.Values[Index];
     end
@@ -316,7 +316,7 @@ end;
 procedure TTestArrays.TestEvery_Falsy_Two_Args;
 begin
   const Falsy = FSut.Every(
-    function (Element: string; Index: Integer): Boolean
+    function (const Element: string; const Index: Integer): Boolean
     begin
       Result := FSut.Values[Index] <> Element;
     end
@@ -328,7 +328,7 @@ end;
 procedure TTestArrays.TestEvery_Truthy;
 begin
   const Truthy = FSut.Every(
-    function (Element: string): Boolean
+    function (const Element: string): Boolean
     begin
       Result := Length(Element) = 1;
     end
@@ -340,7 +340,7 @@ end;
 procedure TTestArrays.TestEvery_Truthy_Tree_Args;
 begin
   const Falsy = FSut.Every(
-    function (Element: string; Index: Integer; const Elements: TArray<string>): Boolean
+    function (const Element: string; const Index: Integer; const Elements: TArray<string>): Boolean
     begin
       Result := not Element.Equals(FSut.Values[Index]) and not Elements[Index].Equals(FSut.Values[Index]);
     end
@@ -354,9 +354,9 @@ begin
   const Sut = TArrays<string>.From(['A', 'B', 'C']);
 
   const Truthy = Sut.Every(
-    function (Item: string; Index: Integer): Boolean
+    function (const Element: string; const Index: Integer): Boolean
     begin
-      Result := Sut.Values[Index] = Item;
+      Result := Sut.Values[Index] = Element;
     end
   );
 
@@ -439,7 +439,7 @@ begin
   const Sut = TArrays<string>.From(['A', 'B', 'C', 'D', 'E']);
 
   const NewArray = Sut.Filter(
-    function (Element: string): Boolean
+    function (const Element: string): Boolean
     begin
       Result := Element = 'NOT_TO_BE_FOUND';
     end
@@ -453,7 +453,7 @@ begin
   const Sut = TArrays<string>.From(['A', 'TO_FILTER', 'C', 'TO_FILTER', 'TO_FILTER']);
 
   const NewArray = Sut.Filter(
-    function (Element: string): Boolean
+    function (const Element: string): Boolean
     begin
       Result := Element = 'TO_FILTER';
     end
@@ -470,7 +470,7 @@ begin
   const Sut = TArrays<string>.From(['A', 'B', 'C', 'D', 'TO_FILTER']);
 
   const NewArray = Sut.Filter(
-    function (Element: string; Index: Integer; const Elements: TArray<string>): Boolean
+    function (const Element: string; const Index: Integer; const Elements: TArray<string>): Boolean
     begin
       Result := (Element = 'TO_FILTER') and (Index = 4) and (Elements[4] = 'TO_FILTER');
     end
@@ -485,7 +485,7 @@ begin
   const Sut = TArrays<string>.From(['A', 'TO_FILTER', 'C', 'D', 'E']);
 
   const NewArray = Sut.Filter(
-    function (Element: string; Index: Integer): Boolean
+    function (const Element: string; const Index: Integer): Boolean
     begin
       Result := (Element = 'TO_FILTER') and (Index = 1);
     end

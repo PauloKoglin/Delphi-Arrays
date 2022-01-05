@@ -148,9 +148,9 @@ function TArrays<T>.Every(const Callback: TCallbackFnElement<T>): Boolean;
 begin
   Result :=
     Self.Every(
-      function(Item: T; Index: Integer; const Items: TArray<T>): Boolean
+      function(const Element: T; const Index: Integer; const Elements: TArray<T>): Boolean
       begin
-        Result := Callback(Item);
+        Result := Callback(Element);
       end
     );
 end;
@@ -159,9 +159,9 @@ function TArrays<T>.Every(const Callback: TCallbackFnElementIndex<T>): Boolean;
 begin
   Result :=
     Self.Every(
-      function(Item: T; Index: Integer; const Items: TArray<T>): Boolean
+      function(const Element: T; const Index: Integer; const Elements: TArray<T>): Boolean
       begin
-        Result := Callback(Item, Index);
+        Result := Callback(Element, Index);
       end
     );
 end;
@@ -191,7 +191,7 @@ end;
 function TArrays<T>.Filter(const Callback: TCallbackFnElementIndex<T>): IArray<T>;
 begin
   Result := Self.Filter(
-    function(Element: T; Index: Integer; const Elements: TArray<T>): Boolean
+    function(const Element: T; const Index: Integer; const Elements: TArray<T>): Boolean
     begin
       Result := Callback(Element, Index);
     end
@@ -201,7 +201,7 @@ end;
 function TArrays<T>.Filter(const Callback: TCallbackFnElement<T>): IArray<T>;
 begin
   Result := Self.Filter(
-    function(Element: T; Index: Integer; const Elements: TArray<T>): Boolean
+    function(const Element: T; const Index: Integer; const Elements: TArray<T>): Boolean
     begin
       Result := Callback(Element);
     end
