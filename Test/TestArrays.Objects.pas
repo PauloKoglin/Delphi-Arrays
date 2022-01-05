@@ -35,6 +35,8 @@ type
     [Test]
     procedure TestPop;
 
+    [Test]
+    procedure TestFill;
   end;
 
 implementation
@@ -59,6 +61,21 @@ begin
   FTestObject1.Free();
   FTestObject2.Free();
   FTestObject3.Free();
+end;
+
+procedure TTestArraysObjects.TestFill;
+begin
+  const NewObject: TSimpleObject = TSimpleObject.Create('NewObject1', 1);
+  try
+    const NewArray: IArray<TSimpleObject> = FSut.Fill(NewObject);
+
+    Assert.AreEqual(3, NewArray.Count);
+    Assert.AreEqual(NewObject, FSut.Values[0]);
+    Assert.AreEqual(NewObject, FSut.Values[1]);
+    Assert.AreEqual(NewObject, FSut.Values[2]);
+  finally
+    NewObject.Free();
+  end;
 end;
 
 procedure TTestArraysObjects.TestFrom;
