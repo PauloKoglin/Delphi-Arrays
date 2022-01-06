@@ -2,7 +2,7 @@
 
 ## :warning: Library is on developement!! :warning:
 
-#### Delphi library to manipulate arrays like javascript, java, etc... 👍
+#### Delphi library to manipulate arrays with lambda functions (anonymous methods) and some more common usefull features seen in languages like javascript, java, etc... 👍
 
 ## Example
 
@@ -36,6 +36,14 @@ Map()
     end
   );
   // output: ['A!', 'B!', 'C!']
+```
+
+Reverse()
+```pascal
+  const MyArray = TArrays<Integer>.From([1, 2, 3]);
+  
+  MyArray.Reverse();
+  // output: [3, 2, 1]
 ```
 
 Use chained calls
