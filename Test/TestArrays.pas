@@ -28,6 +28,9 @@ type
     procedure TestFrom_Empty;
 
     [Test]
+    procedure TestNew;
+
+    [Test]
     procedure TestToArray;
 
     [Test]
@@ -698,6 +701,16 @@ begin
   Assert.AreEqual('A!', NewArray.Values[0]);
   Assert.AreEqual('B', NewArray.Values[1]);
   Assert.AreEqual('C', NewArray.Values[2]);
+end;
+
+procedure TTestArrays.TestNew;
+begin
+  const Sut: IArray<string> = TArrays<string>.New(3);
+
+  Assert.AreEqual(3, Sut.Count);
+  Assert.AreEqual('', Sut.Values[0]);
+  Assert.AreEqual('', Sut.Values[1]);
+  Assert.AreEqual('', Sut.Values[2]);
 end;
 
 procedure TTestArrays.TestPop;

@@ -12,10 +12,13 @@ type
   strict private
     FItems: TArray<T>;
 
-    constructor Create(const NewArray: TArray<T> = []);
+    constructor Create(const NewArray: TArray<T> = []); overload;
+    constructor Create(const Size: Integer); overload;
+
     function GetValue(const Index: Integer): T;
   public
     class function From(const NewArray: TArray<T> = []): IArray<T>;
+    class function New(const Size: Integer): IArray<T>;
 
     function Map(const Callback: TMapCallbackFn<T>): IArray<T>; overload;
     function Map(const Callback: TMapCallbackFnElement<T>): IArray<T>; overload;
@@ -110,6 +113,7 @@ end;
 
 constructor TArrays<T>.Create(const NewArray: TArray<T>);
 begin
+  inherited Create();
   FItems := NewArray;
 end;
 
@@ -310,6 +314,12 @@ begin
   Result := Length(FItems);
 end;
 
+constructor TArrays<T>.Create(const Size: Integer);
+begin
+  inherited Create();
+  SetLength(FItems, Size);
+end;
+
 function TArrays<T>.Map(const Callback: TMapCallbackFnElementIndex<T>): IArray<T>;
 begin
   Result := Self.Map(
@@ -318,6 +328,11 @@ begin
       Result := Callback(Element, Index);
     end
   );
+end;
+
+class function TArrays<T>.New(const Size: Integer): IArray<T>;
+begin
+  Result := TArrays<T>.Create(Size);
 end;
 
 function TArrays<T>.Map(const Callback: TMapCallbackFnElement<T>): IArray<T>;
