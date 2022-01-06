@@ -290,6 +290,9 @@ end;
 
 function TArrays<T>.GetValue(const Index: Integer): T;
 begin
+  if (Index < 0) or (Index > Length(FItems)-1) then
+    raise EArgumentOutOfRangeException.Create('Index out of range.');
+
   Result := FItems[Index];
 end;
 

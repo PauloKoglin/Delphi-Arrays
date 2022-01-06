@@ -31,6 +31,9 @@ type
     procedure TestNew;
 
     [Test]
+    procedure TestValues_Throws_EArgumentOutOfRangeException;
+
+    [Test]
     procedure TestToArray;
 
     [Test]
@@ -1311,6 +1314,25 @@ begin
   Assert.AreEqual('A', FSut.Values[3]);
   Assert.AreEqual('B', FSut.Values[4]);
   Assert.AreEqual('C', FSut.Values[5]);
+end;
+
+procedure TTestArrays.TestValues_Throws_EArgumentOutOfRangeException;
+begin
+  Assert.WillRaise(
+    procedure
+    begin
+      FSut.Values[-1];
+    end,
+    EArgumentOutOfRangeException
+  );
+
+  Assert.WillRaise(
+    procedure
+    begin
+      FSut.Values[3];
+    end,
+    EArgumentOutOfRangeException
+  );
 end;
 
 initialization
