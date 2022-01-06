@@ -16,7 +16,9 @@ uses
   TestArrays in 'TestArrays.pas',
   Delphi.Arrays in '..\Source\Delphi.Arrays.pas',
   Delphi.Arrays.Interfaces.IArray in '..\Source\Interfaces\Delphi.Arrays.Interfaces.IArray.pas',
-  Delphi.Arrays.Interfaces.CallbackFn in '..\Source\Interfaces\Delphi.Arrays.Interfaces.CallbackFn.pas';
+  Delphi.Arrays.Interfaces.CallbackFn in '..\Source\Interfaces\Delphi.Arrays.Interfaces.CallbackFn.pas',
+  TestArrays.Helpers.SimpleObject in 'TestArrays.Helpers.SimpleObject.pas',
+  TestArrays.Objects in 'TestArrays.Objects.pas';
 
 {$IFNDEF TESTINSIGHT}
 var
