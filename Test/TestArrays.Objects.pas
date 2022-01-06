@@ -27,6 +27,9 @@ type
     procedure TestFrom;
 
     [Test]
+    procedure TestNew;
+
+    [Test]
     procedure TestMap_One_Arg;
 
     [Test]
@@ -102,6 +105,16 @@ begin
   Assert.AreSame(FTestObject1, NewArray.Values[0]);
   Assert.AreSame(FTestObject2, NewArray.Values[1]);
   Assert.AreSame(FTestObject3, NewArray.Values[2]);
+end;
+
+procedure TTestArraysObjects.TestNew;
+begin
+  const Sut: IArray<TSimpleObject> = TArrays<TSimpleObject>.New(3);
+
+  Assert.AreEqual(3, Sut.Count);
+  Assert.IsNull(Sut.Values[0]);
+  Assert.IsNull(Sut.Values[1]);
+  Assert.IsNull(Sut.Values[2]);
 end;
 
 procedure TTestArraysObjects.TestPop;
