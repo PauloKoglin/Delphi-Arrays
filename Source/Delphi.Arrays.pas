@@ -18,7 +18,7 @@ type
     function GetValue(const Index: Integer): T;
   public
     class function From(const NewArray: TArray<T> = []): IArray<T>;
-    class function New(const Size: Integer): IArray<T>;
+    class function New(const Size: Integer = 0): IArray<T>;
 
     function Map(const Callback: TMapCallbackFn<T>): IArray<T>; overload;
     function Map(const Callback: TMapCallbackFnElement<T>): IArray<T>; overload;
