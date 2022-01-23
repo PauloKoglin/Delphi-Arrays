@@ -18,7 +18,8 @@ uses
   Delphi.Arrays.Interfaces.IArray in '..\Source\Interfaces\Delphi.Arrays.Interfaces.IArray.pas',
   Delphi.Arrays.Interfaces.CallbackFn in '..\Source\Interfaces\Delphi.Arrays.Interfaces.CallbackFn.pas',
   TestArrays.Helpers.SimpleObject in 'TestArrays.Helpers.SimpleObject.pas',
-  TestArrays.Objects in 'TestArrays.Objects.pas';
+  TestArrays.Objects in 'TestArrays.Objects.pas',
+  TestArrays.Performance in 'TestArrays.Performance.pas';
 
 {$IFNDEF TESTINSIGHT}
 var

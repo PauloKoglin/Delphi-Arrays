@@ -91,6 +91,7 @@
         <DCCReference Include="..\Source\Interfaces\Delphi.Arrays.Interfaces.CallbackFn.pas"/>
         <DCCReference Include="TestArrays.Helpers.SimpleObject.pas"/>
         <DCCReference Include="TestArrays.Objects.pas"/>
+        <DCCReference Include="TestArrays.Performance.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
