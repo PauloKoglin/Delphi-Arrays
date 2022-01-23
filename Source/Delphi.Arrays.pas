@@ -11,6 +11,7 @@ type
   TArrays<T> = class(TInterfacedObject, IArray<T>)
   strict private
     FItems: TArray<T>;
+    FLength: Longint;
 
     constructor Create(const NewArray: TArray<T> = []); overload;
     constructor Create(const Size: Integer); overload;
@@ -115,6 +116,7 @@ constructor TArrays<T>.Create(const NewArray: TArray<T>);
 begin
   inherited Create();
   FItems := NewArray;
+  FLength := Length(FItems);
 end;
 
 function TArrays<T>.Fill(const Value: T; const StartIndex, EndIndex: Integer): IArray<T>;
@@ -308,8 +310,10 @@ end;
 
 function TArrays<T>.Push(const Element: T): Integer;
 begin
-  const NewArray: IArray<T> = Self.Concat(Element);
-  Result := NewArray.Count;
+  FLength := FLength + 1;
+  SetLength(FItems, FLength);
+  FItems[FLength-1] := Element;
+  Result := FLength;
 end;
 
 function TArrays<T>.Count: Integer;
@@ -320,7 +324,8 @@ end;
 constructor TArrays<T>.Create(const Size: Integer);
 begin
   inherited Create();
-  SetLength(FItems, Size);
+  FLength := Size;
+  SetLength(FItems, FLength);
 end;
 
 function TArrays<T>.Map(const Callback: TMapCallbackFnElementIndex<T>): IArray<T>;
